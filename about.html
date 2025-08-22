@@ -1,106 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us - Shreenath Auto Advisers</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <style>
+      /* --- FONT IMPORT --- */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap");
+
+      /* --- ROOT VARIABLES: GRANDEUR PALETTE & KINETIC SYSTEM --- */
+      :root {
+        --primary-color: #1a1a1a;
+        --accent-color-gold: #c5a880;
+        --accent-color-dark-green: #3b4d48;
+        --dark-color: #111111;
+        --white-color: #ffffff;
+        --text-color: #555555;
+        --text-light-color: #f0f0f0;
+        --border-color: #ebebeb;
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Inter", sans-serif;
+        --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --border-radius: 8px;
+        --border-radius-capsule: 50px;
+        --shadow-subtle: 0 5px 25px rgba(0, 0, 0, 0.05);
+        --shadow-lifted: 0 12px 35px rgba(0, 0, 0, 0.08);
+        --glow-shadow: 0 0 40px rgba(197, 168, 128, 0.2);
+      }
+
+      /* --- KEYFRAME ANIMATIONS --- */
+      @keyframes revealLine {
+        from {
+          width: 0;
+        }
+        to {
+          width: 60px;
+        }
+      }
+
+      /* --- BASE STYLES --- */
+      body {
+        font-family: var(--font-body);
+        margin: 0;
+        line-height: 1.8;
+        background-color: var(--white-color);
+        color: var(--text-color);
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0;
+      }
+
+      /* --- DARK TEXTURED BACKGROUND SECTION --- */
+      .bg-textured-dark {
+        background-image: url("background-texture.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+      }
+      .bg-textured-dark::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(10, 20, 20, 0.75);
+        z-index: 1;
+      }
+      .bg-textured-dark .container {
+        position: relative;
+        z-index: 2;
+      }
+      .bg-textured-dark .section-title {
+        color: var(--accent-color-gold);
+      }
+      .bg-textured-dark .section-subtitle {
+        color: var(--text-light-color);
+        opacity: 0.9;
+      }
+      .bg-textured-dark .team-member h4 {
+        color: var(--white-color);
+      }
+
+      /* --- HEADER & NAVIGATION --- */
+      header {
+        background: var(--white-color);
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: var(--shadow-subtle);
+      }
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark-color);
+        font-weight: 700;
+        font-family: var(--font-heading);
+      }
+      .logo img {
+        max-height: 50px;
+        width: auto;
+        margin-right: 15px;
+      }
+      .logo span {
+        font-size: 22px;
+        display: none;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
+        background: var(--white-color);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.5s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      .nav-links.nav-active {
+        right: 0;
+      }
+      .nav-links li {
+        margin: 25px 0;
+      }
+      .nav-links a {
+        color: var(--dark-color);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+      .nav-links a.active {
+        color: var(--accent-color-dark-green);
+      }
+      .hamburger {
+        display: block;
+        cursor: pointer;
+        z-index: 1001;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        margin: 6px 0;
+        background: var(--dark-color);
+        transition: all 0.3s ease;
+      }
+      .hamburger.toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .hamburger.toggle .line2 {
+        opacity: 0;
+      }
+      .hamburger.toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      /* --- PAGE HEADER --- */
+      .page-header {
+        padding: 80px 20px;
+        text-align: center;
+        background-color: #fafafa;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .page-header h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        color: var(--dark-color);
+        margin: 0;
+      }
+
+      /* --- CONTENT & SECTIONS --- */
+      .content-section {
+        padding: 120px 0;
+      }
+      .section-title {
+        text-align: center;
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 3.2rem);
+        color: var(--dark-color);
+        margin: 0 auto 20px auto;
+        position: relative;
+        width: fit-content;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 3px;
+        background-color: var(--accent-color-gold);
+        width: 0;
+      }
+      .visible .section-title::after {
+        animation: revealLine 1s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+      }
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        max-width: 750px;
+        margin: 0 auto 80px auto;
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+
+      .about-content p {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto 25px auto;
+        text-align: center;
+        line-height: 1.9;
+      }
+
+      /* --- GRIDS & CARDS --- */
+      .feature-grid,
+      .team-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .feature-item,
+      .team-member {
+        background: var(--white-color);
+        padding: 40px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-subtle);
+        transition: var(--transition-smooth);
+      }
+      .feature-item:hover,
+      .team-member:hover {
+        transform: translateY(-12px);
+        box-shadow: var(--shadow-lifted), var(--glow-shadow);
+      }
+      .feature-item h3 {
+        font-family: var(--font-heading);
+        color: var(--dark-color);
+        font-size: 1.8rem;
+        margin: 0 0 15px 0;
+      }
+      .feature-item p {
+        margin: 0;
+      }
+      .team-photo-wrapper {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        margin: 0 auto 25px auto;
+        border-radius: 50%;
+        transition: var(--transition-smooth);
+      }
+      .team-photo-wrapper::before {
+        content: "";
+        position: absolute;
+        top: -7px;
+        left: -7px;
+        right: -7px;
+        bottom: -7px;
+        border: 2px solid var(--accent-color-gold);
+        border-radius: 50%;
+        transform: scale(0.9);
+        opacity: 0;
+        transition: var(--transition-smooth);
+      }
+      .team-member:hover .team-photo-wrapper::before {
+        transform: scale(1);
+        opacity: 1;
+      }
+      .team-member img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: var(--shadow-lifted);
+      }
+      .team-member h4 {
+        font-family: var(--font-heading);
+        font-size: 1.6rem;
+        margin: 0 0 5px 0;
+        color: var(--dark-color);
+      }
+      .bg-textured-dark .team-member h4 {
+        color: var(--white-color);
+      }
+      .team-member p {
+        color: var(--accent-color-dark-green);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        background: var(--primary-color);
+        color: #a0a0a0;
+        text-align: center;
+        padding: 60px 20px;
+      }
+      footer p {
+        margin: 5px 0;
+      }
+
+      /* --- ANIMATIONS --- */
+      .hidden {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        will-change: transform, opacity;
+      }
+      .visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stagger-animation .hidden:nth-child(2) {
+        transition-delay: 0.15s;
+      }
+      .stagger-animation .hidden:nth-child(3) {
+        transition-delay: 0.3s;
+      }
+
+      /* --- RESPONSIVE STYLES --- */
+      @media (min-width: 768px) {
+        .logo span {
+          display: inline-block;
+        }
+        .hamburger {
+          display: none;
+        }
+        .nav-links {
+          position: static;
+          flex-direction: row;
+          height: auto;
+          width: auto;
+          background: none;
+          box-shadow: none;
+          transition: none;
+        }
+        .nav-links li {
+          margin: 0 20px;
+        }
+        .nav-links a {
+          font-size: 14px;
+          white-space: nowrap;
+          position: relative;
+        }
+        .nav-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: var(--accent-color-dark-green);
+          transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+          width: 100%;
+        }
+        .feature-grid,
+        .team-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (min-width: 1024px) {
+        .logo img {
+          max-height: 55px;
+        }
+        .logo span {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="logo.png" alt="Shreenath Auto Advisers Logo">
-                    <span>Shreenath Auto Advisers</span>
-                </a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html" class="active">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="Shreenath Auto Advisers Logo" />
+            <span>Shreenath Auto Advisers</span>
+          </a>
         </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <div class="hamburger">
+            <span class="line1"></span> <span class="line2"></span>
+            <span class="line3"></span>
+          </div>
+        </nav>
+      </div>
     </header>
 
-    <section class="page-header">
-        <div class="container">
-            <h2 class="hidden">Our Story & Commitment</h2>
-        </div>
+    <section class="page-header hidden">
+      <div class="container">
+        <h2>Our Story & Commitment</h2>
+      </div>
     </section>
 
     <section class="content-section">
-        <div class="container">
-            <div class="about-content hidden">
-                <h2 class="section-title">Who We Are</h2>
-                <p>Welcome to Shreenath Auto Advisers, your dedicated partner for all Regional Transport Office (RTO) related services. Founded on the principles of integrity, efficiency, and customer satisfaction, we specialize in providing expert advice and hands-on assistance for a wide range of RTO matters. Our goal is to ensure a smooth, transparent, and hassle-free experience for every client we serve.</p>
-                <p>We understand that dealing with RTO procedures can be complex and time-consuming. That's why we built our business: to be the knowledgeable and reliable guide that vehicle owners can count on. We handle all the paperwork, follow-ups, and processes efficiently, so you can save valuable time and avoid unnecessary complications.</p>
-            </div>
+      <div class="container hidden">
+        <div class="about-content">
+          <h2 class="section-title">Who We Are</h2>
+          <p>
+            Welcome to Shreenath Auto Advisers, your dedicated partner for all
+            Regional Transport Office (RTO) related services. Founded on the
+            principles of integrity, efficiency, and customer satisfaction, we
+            specialize in providing expert advice and hands-on assistance for a
+            wide range of RTO matters. Our goal is to ensure a smooth,
+            transparent, and hassle-free experience for every client we serve.
+          </p>
+          <p>
+            We understand that dealing with RTO procedures can be complex and
+            time-consuming. That's why we built our business: to be the
+            knowledgeable and reliable guide that vehicle owners can count on.
+            We handle all the paperwork, follow-ups, and processes efficiently,
+            so you can save valuable time and avoid unnecessary complications.
+          </p>
         </div>
+      </div>
     </section>
 
-    <section class="content-section bg-light">
-        <div class="container">
-            <div class="about-content hidden">
-                 <h2 class="section-title">Our Mission and Values</h2>
-                 <p class="section-subtitle">Our mission is simple: to simplify the complexities of the RTO. We achieve this by adhering to our core values in every task we undertake.</p>
-                 <div class="feature-grid">
-                    <div class="feature-item">
-                        <h3>Reliability</h3>
-                        <p>We deliver on our promises. When we take on your work, you can be confident that it will be completed accurately and on time.</p>
-                    </div>
-                     <div class="feature-item">
-                        <h3>Transparency</h3>
-                        <p>We believe in clear and honest communication. You will always be kept informed about the status of your work and the costs involved, with no hidden surprises.</p>
-                    </div>
-                     <div class="feature-item">
-                        <h3>Customer Focus</h3>
-                        <p>We build long-term relationships based on trust. We are here to guide you every step of the way and ensure your complete satisfaction.</p>
-                    </div>
-                 </div>
-            </div>
+    <section class="content-section bg-textured-dark">
+      <div class="container hidden">
+        <h2 class="section-title">Our Mission and Values</h2>
+        <p class="section-subtitle">
+          Our mission is simple: to simplify the complexities of the RTO. We
+          achieve this by adhering to our core values in every task we
+          undertake.
+        </p>
+        <div class="feature-grid stagger-animation">
+          <div class="feature-item hidden">
+            <h3>Reliability</h3>
+            <p>
+              We deliver on our promises. When we take on your work, you can be
+              confident that it will be completed accurately and on time.
+            </p>
+          </div>
+          <div class="feature-item hidden">
+            <h3>Transparency</h3>
+            <p>
+              We believe in clear and honest communication. You will always be
+              kept informed about the status of your work and the costs
+              involved, with no hidden surprises.
+            </p>
+          </div>
+          <div class="feature-item hidden">
+            <h3>Customer Focus</h3>
+            <p>
+              We build long-term relationships based on trust. We are here to
+              guide you every step of the way and ensure your complete
+              satisfaction.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <section class="content-section">
-        <div class="container">
-            <h2 class="section-title hidden">Meet Our Experts</h2>
-            <p class="section-subtitle hidden">Our team is our greatest asset. With a wealth of experience and a passion for service, our experts are ready to assist you with dedication and professionalism.</p>
-            <div class="team-grid">
-                <div class="team-member hidden">
-                    <img src="chetan.jpg" alt="Chetan Patel">
-                    <h4>Chetan Patel</h4>
-                    <p>Founder & RTO Adviser</p>
-                </div>
-                <div class="team-member hidden">
-                    <img src="jasmin.jpg" alt="Jasmin Patel">
-                    <h4>Jasmin Patel</h4>
-                    <p>Technical Expert</p>
-                </div>
-                <div class="team-member hidden">
-                    <img src="divyesh.jpg" alt="Divyesh Patel">
-                    <h4>Divyesh Patel</h4>
-                    <p>Manage Dhoraji Branch</p>
-                </div>
+      <div class="container hidden">
+        <h2 class="section-title">Meet Our Experts</h2>
+        <p class="section-subtitle">
+          Our team is our greatest asset. With a wealth of experience and a
+          passion for service, our experts are ready to assist you with
+          dedication and professionalism.
+        </p>
+        <div class="team-grid stagger-animation">
+          <div class="team-member hidden">
+            <div class="team-photo-wrapper">
+              <img src="chetan.jpg" alt="Chetan Patel" />
             </div>
+            <h4>Chetan Patel</h4>
+            <p>Founder & Principal Adviser</p>
+          </div>
+          <div class="team-member hidden">
+            <div class="team-photo-wrapper">
+              <img src="jasmin.jpg" alt="Jasmin Patel" />
+            </div>
+            <h4>Jasmin Patel</h4>
+            <p>Technical Specialist</p>
+          </div>
+          <div class="team-member hidden">
+            <div class="team-photo-wrapper">
+              <img src="divyesh.jpg" alt="Divyesh Patel" />
+            </div>
+            <h4>Divyesh Patel</h4>
+            <p>Director, Dhoraji Branch</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
-            <p>Your Trusted RTO Consultancy Partner</p>
-        </div>
+      <div class="container">
+        <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
+        <p>Your Premier RTO Consultancy Partner</p>
+      </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        const hiddenElements = document.querySelectorAll(".hidden");
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        if (hamburger && navLinks) {
+          hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("nav-active");
+            hamburger.classList.toggle("toggle");
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
