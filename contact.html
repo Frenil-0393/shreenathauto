@@ -1,76 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us - Shreenath Auto Advisers</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <style>
+      /* --- FONT IMPORT --- */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap");
+
+      /* --- ROOT VARIABLES: GRANDEUR PALETTE & KINETIC SYSTEM --- */
+      :root {
+        --primary-color: #1a1a1a;
+        --accent-color-gold: #c5a880;
+        --accent-color-dark-green: #3b4d48;
+        --accent-color-secondary: #2c3e50;
+        --dark-color: #111111;
+        --white-color: #ffffff;
+        --text-color: #555555;
+        --border-color: #ebebeb;
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Inter", sans-serif;
+        --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --border-radius: 8px;
+        --shadow-subtle: 0 5px 25px rgba(0, 0, 0, 0.05);
+        --shadow-lifted: 0 12px 35px rgba(0, 0, 0, 0.08);
+        --glow-shadow: 0 0 40px rgba(197, 168, 128, 0.2);
+      }
+
+      /* --- KEYFRAME ANIMATIONS --- */
+      @keyframes revealLine {
+        from {
+          width: 0;
+        }
+        to {
+          width: 60px;
+        }
+      }
+
+      /* --- BASE STYLES --- */
+      body {
+        font-family: var(--font-body);
+        margin: 0;
+        line-height: 1.8;
+        background-color: var(--white-color);
+        color: var(--text-color);
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0;
+      }
+
+      /* --- HEADER & NAVIGATION --- */
+      header {
+        background: var(--white-color);
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: var(--shadow-subtle);
+      }
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark-color);
+        font-weight: 700;
+        font-family: var(--font-heading);
+      }
+      .logo img {
+        max-height: 50px;
+        width: auto;
+        margin-right: 15px;
+      }
+      .logo span {
+        font-size: 22px;
+        display: none;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
+        background: var(--white-color);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.5s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      .nav-links.nav-active {
+        right: 0;
+      }
+      .nav-links li {
+        margin: 25px 0;
+      }
+      .nav-links a {
+        color: var(--dark-color);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+      .nav-links a.active {
+        color: var(--accent-color-dark-green);
+      }
+      .hamburger {
+        display: block;
+        cursor: pointer;
+        z-index: 1001;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        margin: 6px 0;
+        background: var(--dark-color);
+        transition: all 0.3s ease;
+      }
+      .hamburger.toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .hamburger.toggle .line2 {
+        opacity: 0;
+      }
+      .hamburger.toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      /* --- PAGE HEADER --- */
+      .page-header {
+        padding: 80px 20px;
+        text-align: center;
+        background-color: #fafafa;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .page-header h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        color: var(--dark-color);
+        margin: 0;
+      }
+
+      /* --- CONTENT & SECTIONS --- */
+      .content-section {
+        padding: 120px 0;
+      }
+      .section-title {
+        text-align: center;
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 3.2rem);
+        color: var(--dark-color);
+        margin: 0 auto 20px auto;
+        position: relative;
+        width: fit-content;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 3px;
+        background-color: var(--accent-color-dark-green);
+        width: 0;
+      }
+      .visible .section-title::after {
+        animation: revealLine 1s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+      }
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        max-width: 750px;
+        margin: 0 auto 100px auto;
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+
+      /* --- GRIDS & CARDS --- */
+      .branch-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .branch-item {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background: var(--white-color);
+        padding: 40px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-subtle);
+        transition: var(--transition-smooth);
+      }
+      .branch-item:hover {
+        transform: translateY(-12px);
+        box-shadow: var(--shadow-lifted), var(--glow-shadow);
+      }
+      .branch-item h3 {
+        font-family: var(--font-heading);
+        color: var(--dark-color);
+        font-size: 1.8rem;
+        margin: 0 0 15px 0;
+      }
+      .branch-item p {
+        margin: 10px 0;
+        line-height: 1.9;
+      }
+      .branch-item a {
+        color: var(--accent-color-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      .branch-item a:hover {
+        color: var(--accent-color-gold);
+        text-decoration: underline;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        background: var(--primary-color);
+        color: #a0a0a0;
+        text-align: center;
+        padding: 60px 20px;
+      }
+      footer p {
+        margin: 5px 0;
+      }
+
+      /* --- ANIMATIONS --- */
+      .hidden {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        will-change: transform, opacity;
+      }
+      .visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stagger-animation .hidden:nth-child(2) {
+        transition-delay: 0.15s;
+      }
+
+      /* --- RESPONSIVE STYLES --- */
+      @media (min-width: 768px) {
+        .logo span {
+          display: inline-block;
+        }
+        .hamburger {
+          display: none;
+        }
+        .nav-links {
+          position: static;
+          flex-direction: row;
+          height: auto;
+          width: auto;
+          background: none;
+          box-shadow: none;
+          transition: none;
+        }
+        .nav-links li {
+          margin: 0 20px;
+        }
+        .nav-links a {
+          font-size: 14px;
+          white-space: nowrap;
+          position: relative;
+        }
+        .nav-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: var(--accent-color-dark-green);
+          transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+          width: 100%;
+        }
+        .branch-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1200px) {
+        .logo img {
+          max-height: 55px;
+        }
+        .logo span {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="logo.png" alt="Shreenath Auto Advisers Logo">
-                    <span>Shreenath Auto Advisers</span>
-                </a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="contact.html" class="active">Contact</a></li>
-                </ul>
-                 <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="Shreenath Auto Advisers Logo" />
+            <span>Shreenath Auto Advisers</span>
+          </a>
         </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+          </ul>
+          <div class="hamburger">
+            <span class="line1"></span> <span class="line2"></span>
+            <span class="line3"></span>
+          </div>
+        </nav>
+      </div>
     </header>
 
-    <section class="page-header">
-        <div class="container">
-            <h2 class="hidden">Get In Touch</h2>
-        </div>
+    <section class="page-header hidden">
+      <div class="container">
+        <h2>Get In Touch</h2>
+      </div>
     </section>
 
     <section class="content-section">
-        <div class="container">
-            <div class="contact-content hidden">
-                <h2 class="section-title">We're Here to Help</h2>
-                <p>We are ready to assist you with all your RTO-related needs. Whether you have a simple question or a complex requirement, please don't hesitate to reach out. You can visit one of our offices, call us for a quick consultation, or send us an email. We are committed to providing the best and most responsive service in the city.</p>
-            </div>
-            
-            <div class="branch-grid mt-40">
-                 <div class="branch-item hidden">
-                     <h3>Jamkandorana Branch</h3>
-                     <p><strong>Address:</strong> Near Bharat ges agency, 1st Floor, Kalavad Road, Jamkandorana, Rajkot, Gujarat-360405</p>
-                     <p><strong>Phone:</strong> <a href="tel:9824566262">9824566262</a></p>
-                     <p><strong>Phone:</strong> <a href="tel:9925466261">9925466261</a></p>
-                     <p><strong>Email:</strong> <a href="mailto:shreenath.auto3930@gmail.com">shreenath.auto3930@gmail.com</a></p>
-                     <p><strong>Working Hours:</strong> Mon - Sat, 9:00 AM - 7:00 PM</p>
-                 </div>
-                 <div class="branch-item hidden">
-                     <h3>Dhoraji Branch</h3>
-                     <p><strong>Address:</strong> Near Naqsh pan, Jetpur raod, Dhoraji, Rajkot, Gujarat-360410</p>
-                     <p><strong>Phone:</strong> <a href="tel:9099561439">9099561439</a></p>
-                     <p><strong>Email:</strong> <a href="mailto:shreenath.auto3930@gmail.com">shreenath.auto3930@gmail.com</a></p>
-                     <p><strong>Working Hours:</strong> Mon - Sat, 9:00 AM - 7:00 PM</p>
-                 </div>
-             </div>
+      <div class="container hidden">
+        <h2 class="section-title">We're Here to Help</h2>
+        <p class="section-subtitle">
+          We are ready to assist you with all your RTO-related needs. Whether
+          you have a simple question or a complex requirement, please don't
+          hesitate to reach out. You can visit one of our offices, call us for a
+          quick consultation, or send us an email. We are committed to providing
+          the best and most responsive service in the city.
+        </p>
+
+        <div class="branch-grid stagger-animation">
+          <div class="branch-item hidden">
+            <h3>Jamkandorana Branch</h3>
+            <p>
+              <strong>Address:</strong> Near Bharat ges agency, 1st Floor,
+              Kalavad Road, Jamkandorana, Rajkot, Gujarat-360405
+            </p>
+            <p>
+              <strong>Phone:</strong> <a href="tel:9824566262">9824566262</a>
+            </p>
+            <p>
+              <strong>Phone:</strong> <a href="tel:9925466261">9925466261</a>
+            </p>
+            <p>
+              <strong>Email:</strong>
+              <a href="mailto:shreenath.auto3930@gmail.com"
+                >shreenath.auto3930@gmail.com</a
+              >
+            </p>
+            <p><strong>Working Hours:</strong> Mon - Sat, 9:00 AM - 7:00 PM</p>
+          </div>
+          <div class="branch-item hidden">
+            <h3>Dhoraji Branch</h3>
+            <p>
+              <strong>Address:</strong> Near Naqsh pan, Jetpur raod, Dhoraji,
+              Rajkot, Gujarat-360410
+            </p>
+            <p>
+              <strong>Phone:</strong> <a href="tel:9099561439">9099561439</a>
+            </p>
+            <p>
+              <strong>Email:</strong>
+              <a href="mailto:shreenath.auto3930@gmail.com"
+                >shreenath.auto3930@gmail.com</a
+              >
+            </p>
+            <p><strong>Working Hours:</strong> Mon - Sat, 9:00 AM - 7:00 PM</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
-            <p>Your Trusted RTO Consultancy Partner</p>
-        </div>
+      <div class="container">
+        <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
+        <p>Your Premier RTO Consultancy Partner</p>
+      </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        const hiddenElements = document.querySelectorAll(".hidden");
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        if (hamburger && navLinks) {
+          hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("nav-active");
+            hamburger.classList.toggle("toggle");
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
