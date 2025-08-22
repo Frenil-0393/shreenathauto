@@ -1,108 +1,526 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Our Services - Shreenath Auto Advisers</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <style>
+      /* --- FONT IMPORT --- */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap");
+
+      /* --- ROOT VARIABLES: GRANDEUR PALETTE & KINETIC SYSTEM --- */
+      :root {
+        --primary-color: #1a1a1a;
+        --accent-color-gold: #c5a880;
+        --accent-color-dark-green: #3b4d48;
+        --accent-color-secondary: #2c3e50;
+        --dark-color: #111111;
+        --white-color: #ffffff;
+        --text-color: #555555;
+        --border-color: #ebebeb;
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Inter", sans-serif;
+        --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --border-radius: 8px;
+        --shadow-subtle: 0 5px 25px rgba(0, 0, 0, 0.05);
+        --shadow-lifted: 0 12px 35px rgba(0, 0, 0, 0.08);
+        --glow-shadow: 0 0 40px rgba(197, 168, 128, 0.2);
+      }
+
+      /* --- KEYFRAME ANIMATIONS --- */
+      @keyframes revealLine {
+        from {
+          width: 0;
+        }
+        to {
+          width: 60px;
+        }
+      }
+
+      /* --- BASE STYLES --- */
+      body {
+        font-family: var(--font-body);
+        margin: 0;
+        line-height: 1.8;
+        background-color: var(--white-color);
+        color: var(--text-color);
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0;
+      }
+
+      /* --- HEADER & NAVIGATION --- */
+      header {
+        background: var(--white-color);
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: var(--shadow-subtle);
+      }
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark-color);
+        font-weight: 700;
+        font-family: var(--font-heading);
+      }
+      .logo img {
+        max-height: 50px;
+        width: auto;
+        margin-right: 15px;
+      }
+      .logo span {
+        font-size: 22px;
+        display: none;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
+        background: var(--white-color);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.5s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      .nav-links.nav-active {
+        right: 0;
+      }
+      .nav-links li {
+        margin: 25px 0;
+      }
+      .nav-links a {
+        color: var(--dark-color);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+      .nav-links a.active {
+        color: var(--accent-color-dark-green);
+      }
+      .hamburger {
+        display: block;
+        cursor: pointer;
+        z-index: 1001;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        margin: 6px 0;
+        background: var(--dark-color);
+        transition: all 0.3s ease;
+      }
+      .hamburger.toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .hamburger.toggle .line2 {
+        opacity: 0;
+      }
+      .hamburger.toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      /* --- PAGE HEADER --- */
+      .page-header {
+        padding: 80px 20px;
+        text-align: center;
+        background-color: #fafafa;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .page-header h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        color: var(--dark-color);
+        margin: 0;
+      }
+
+      /* --- CONTENT & SECTIONS --- */
+      .content-section {
+        padding: 120px 0;
+      }
+      .section-title {
+        text-align: center;
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 3.2rem);
+        color: var(--dark-color);
+        margin: 0 auto 20px auto;
+        position: relative;
+        width: fit-content;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 3px;
+        background-color: var(--accent-color-dark-green);
+        width: 0;
+      }
+      .visible .section-title::after {
+        animation: revealLine 1s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+      }
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        max-width: 750px;
+        margin: 0 auto 100px auto;
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+
+      /* --- GRIDS & CARDS --- */
+      .service-grid-full {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 120px 40px; /* <<< THE FIX: 100px vertical, 60px horizontal */
+      }
+      .service-item {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background: var(--white-color);
+        padding: 40px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-subtle);
+        transition: var(--transition-smooth);
+      }
+      .service-item:hover {
+        transform: translateY(-12px);
+        box-shadow: var(--shadow-lifted), var(--glow-shadow);
+      }
+      .service-item h3 {
+        font-family: var(--font-heading);
+        color: var(--accent-color-secondary);
+        font-size: 1.8rem;
+        margin: 0 0 15px 0;
+      }
+      .service-item p {
+        margin: 0;
+        flex-grow: 1;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        background: var(--primary-color);
+        color: #a0a0a0;
+        text-align: center;
+        padding: 60px 20px;
+      }
+      footer p {
+        margin: 5px 0;
+      }
+
+      /* --- ANIMATIONS --- */
+      .hidden {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        will-change: transform, opacity;
+      }
+      .visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stagger-animation .hidden:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+      .stagger-animation .hidden:nth-child(3) {
+        transition-delay: 0.2s;
+      }
+      .stagger-animation .hidden:nth-child(4) {
+        transition-delay: 0.3s;
+      }
+      .stagger-animation .hidden:nth-child(5) {
+        transition-delay: 0.4s;
+      }
+      .stagger-animation .hidden:nth-child(6) {
+        transition-delay: 0.5s;
+      }
+      .stagger-animation .hidden:nth-child(7) {
+        transition-delay: 0.6s;
+      }
+      .stagger-animation .hidden:nth-child(8) {
+        transition-delay: 0.7s;
+      }
+      .stagger-animation .hidden:nth-child(9) {
+        transition-delay: 0.8s;
+      }
+      .stagger-animation .hidden:nth-child(10) {
+        transition-delay: 0.9s;
+      }
+      .stagger-animation .hidden:nth-child(11) {
+        transition-delay: 1s;
+      }
+      .stagger-animation .hidden:nth-child(12) {
+        transition-delay: 1.1s;
+      }
+
+      /* --- RESPONSIVE STYLES --- */
+      @media (min-width: 768px) {
+        .logo span {
+          display: inline-block;
+        }
+        .hamburger {
+          display: none;
+        }
+        .nav-links {
+          position: static;
+          flex-direction: row;
+          height: auto;
+          width: auto;
+          background: none;
+          box-shadow: none;
+          transition: none;
+        }
+        .nav-links li {
+          margin: 0 20px;
+        }
+        .nav-links a {
+          font-size: 14px;
+          white-space: nowrap;
+          position: relative;
+        }
+        .nav-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: var(--accent-color-dark-green);
+          transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+          width: 100%;
+        }
+        .service-grid-full {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1200px) {
+        .logo img {
+          max-height: 55px;
+        }
+        .logo span {
+          font-size: 24px;
+        }
+        .service-grid-full {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="logo.png" alt="Shreenath Auto Advisers Logo">
-                    <span>Shreenath Auto Advisers</span>
-                </a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="services.html" class="active">Services</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="Shreenath Auto Advisers Logo" />
+            <span>Shreenath Auto Advisers</span>
+          </a>
         </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html" class="active">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <div class="hamburger">
+            <span class="line1"></span> <span class="line2"></span>
+            <span class="line3"></span>
+          </div>
+        </nav>
+      </div>
     </header>
 
-    <section class="page-header">
-        <div class="container">
-            <h2 class="hidden">What We Offer</h2>
-        </div>
+    <section class="page-header hidden">
+      <div class="container">
+        <h2>Our Comprehensive Services</h2>
+      </div>
     </section>
 
     <section class="content-section">
-        <div class="container">
-             <div class="welcome-content hidden">
-                <h2 class="section-title">Our Comprehensive RTO Services</h2>
-                <p class="section-subtitle">At Shreenath Auto Advisers, we offer a complete range of RTO services designed to cover all your needs. Whether you are a new vehicle owner or need to manage documentation for an existing vehicle, our team is equipped to handle every requirement with expertise. Below is a detailed list of what we offer.</p>
-            </div>
-            <div class="service-grid-full">
-                <div class="service-item hidden">
-                    <h3>New Vehicle Registration</h3>
-                    <p>Start your journey on the right foot. We provide complete assistance with the registration process for your new car or bike, ensuring all documents are correctly filed for a swift and error-free process.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>Transfer of Ownership</h3>
-                    <p>Buying or selling a used vehicle? We manage the seamless transfer of vehicle ownership, handling all necessary paperwork and RTO procedures to make the transition official and legally compliant.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>Driving License Services</h3>
-                    <p>Whether you're getting your first learner's license, upgrading to a permanent license, or renewing an existing one, we provide expert guidance to make the process straightforward and successful.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>Vehicle Fitness Certificate</h3>
-                    <p>Ensure your vehicle is always compliant and road-worthy. We assist in obtaining or renewing your vehicle's fitness certificate, managing the inspection process and documentation on your behalf.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>No Objection Certificate (NOC)</h3>
-                    <p>Moving to another state? We help you obtain an NOC for transferring your vehicle, navigating all inter-state formalities so you can re-register your vehicle at your new location with ease.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>Hypothecation Removal</h3>
-                    <p>Once you've paid off your vehicle loan, it's crucial to remove the bank's lien from your RC. We offer complete assistance with removing the hypothecation from your RC book after loan closure.</p>
-                </div>
-                 <div class="service-item hidden">
-                    <h3>Duplicate RC/License</h3>
-                    <p>Lost or damaged your documents? Don't worry. We help with the official process of obtaining a duplicate Registration Certificate or Driving License in a timely manner.</p>
-                </div>
-                 <div class="service-item hidden">
-                    <h3>Address Change in RC/DL</h3>
-                    <p>If you've moved, your documents need to reflect your new address. We provide quick and efficient assistance with updating your address on both your RC book and driving license.</p>
-                </div>
-                 <div class="service-item hidden">
-                    <h3>All RTO Consulting</h3>
-                    <p>Have a unique or complex RTO issue? For any other RTO-related work, feel free to contact us. We provide expert advice and custom solutions tailored to your specific needs.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>Vehicle Insurance Services</h3>
-                    <p>Stay protected on the road. We assist with new insurance policies and timely renewals, helping you find the best coverage from reputable providers at competitive rates.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>Commercial Vehicle Permits</h3>
-                    <p>We handle the application and renewal of various commercial permits, including goods carriers, tourist vehicles, and more, ensuring your business operations remain compliant.</p>
-                </div>
-                <div class="service-item hidden">
-                    <h3>Fancy Number Registration</h3>
-                    <p>Want a special registration number for your vehicle? We guide you through the process of applying for and acquiring a choice or fancy number through the official RTO channels.</p>
-                </div>
-            </div>
+      <div class="container hidden">
+        <h2 class="section-title">A Solution for Every Need</h2>
+        <p class="section-subtitle">
+          At Shreenath Auto Advisers, we offer a complete suite of RTO services
+          designed to cover every possible requirement. Whether you are a new
+          vehicle owner or need to manage documentation for an existing vehicle,
+          our expert team is equipped to handle each task with precision and
+          care. Explore our detailed list of offerings below.
+        </p>
+
+        <div class="service-grid-full stagger-animation">
+          <div class="service-item hidden">
+            <h3>New Vehicle Registration</h3>
+            <p>
+              Start your journey on the right foot. We provide complete
+              assistance with the registration process for your new car or bike,
+              ensuring all documents are correctly filed for a swift and
+              error-free process.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Transfer of Ownership</h3>
+            <p>
+              Buying or selling a used vehicle? We manage the seamless transfer
+              of vehicle ownership, handling all necessary paperwork and RTO
+              procedures to make the transition official and legally compliant.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Driving License Services</h3>
+            <p>
+              Whether you're getting your first learner's license, upgrading to
+              a permanent license, or renewing an existing one, we provide
+              expert guidance to make the process straightforward and
+              successful.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Vehicle Fitness Certificate</h3>
+            <p>
+              Ensure your vehicle is always compliant and road-worthy. We assist
+              in obtaining or renewing your vehicle's fitness certificate,
+              managing the inspection process and documentation on your behalf.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>No Objection Certificate (NOC)</h3>
+            <p>
+              Moving to another state? We help you obtain an NOC for
+              transferring your vehicle, navigating all inter-state formalities
+              so you can re-register your vehicle at your new location with
+              ease.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Hypothecation Removal</h3>
+            <p>
+              Once you've paid off your vehicle loan, it's crucial to remove the
+              bank's lien from your RC. We offer complete assistance with
+              removing the hypothecation from your RC book after loan closure.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Duplicate RC/License</h3>
+            <p>
+              Lost or damaged your documents? Don't worry. We help with the
+              official process of obtaining a duplicate Registration Certificate
+              or Driving License in a timely manner.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Address Change in RC/DL</h3>
+            <p>
+              If you've moved, your documents need to reflect your new address.
+              We provide quick and efficient assistance with updating your
+              address on both your RC book and driving license.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>All RTO Consulting</h3>
+            <p>
+              Have a unique or complex RTO issue? For any other RTO-related
+              work, feel free to contact us. We provide expert advice and custom
+              solutions tailored to your specific needs.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Vehicle Insurance Services</h3>
+            <p>
+              Stay protected on the road. We assist with new insurance policies
+              and timely renewals, helping you find the best coverage from
+              reputable providers at competitive rates.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Commercial Vehicle Permits</h3>
+            <p>
+              We handle the application and renewal of various commercial
+              permits, including goods carriers and tourist vehicles, ensuring
+              your business operations remain compliant.
+            </p>
+          </div>
+          <div class="service-item hidden">
+            <h3>Fancy Number Registration</h3>
+            <p>
+              Want a special registration number for your vehicle? We guide you
+              through the process of applying for and acquiring a choice or
+              fancy number through the official RTO channels.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
-            <p>Your Trusted RTO Consultancy Partner</p>
-        </div>
+      <div class="container">
+        <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
+        <p>Your Premier RTO Consultancy Partner</p>
+      </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        const hiddenElements = document.querySelectorAll(".hidden");
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        if (hamburger && navLinks) {
+          hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("nav-active");
+            hamburger.classList.toggle("toggle");
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
