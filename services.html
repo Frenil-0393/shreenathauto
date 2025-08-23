@@ -14,9 +14,11 @@
         --accent-color-gold: #c5a880;
         --accent-color-dark-green: #3b4d48;
         --accent-color-secondary: #2c3e50;
+        --accent-color-dark-green2: #24302c;
         --dark-color: #111111;
         --white-color: #ffffff;
         --text-color: #555555;
+        --text-light-color: #f0f0f0;
         --border-color: #ebebeb;
         --font-heading: "Playfair Display", serif;
         --font-body: "Inter", sans-serif;
@@ -34,6 +36,26 @@
         }
         to {
           width: 60px;
+        }
+      }
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes navItemAnimation {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
 
@@ -56,10 +78,10 @@
         padding: 0;
       }
 
-      /* --- HEADER & NAVIGATION --- */
+      /* --- HEADER & NAVIGATION (SYNCED WITH INDEX.HTML) --- */
       header {
         background: var(--white-color);
-        padding: 20px 0;
+        padding: 15px 0;
         border-bottom: 1px solid var(--border-color);
         position: sticky;
         top: 0;
@@ -82,27 +104,28 @@
         font-family: var(--font-heading);
       }
       .logo img {
-        max-height: 50px;
+        max-height: 45px;
         width: auto;
-        margin-right: 15px;
+        margin-right: 10px;
       }
       .logo span {
-        font-size: 22px;
-        display: none;
+        font-size: 16px;
+        display: inline-block;
+        line-height: 1.2;
       }
       .nav-links {
         position: fixed;
         top: 0;
         right: -100%;
         height: 100vh;
-        width: 70%;
-        max-width: 300px;
-        background: var(--white-color);
+        width: 80%;
+        max-width: 320px;
+        background-color: var(--accent-color-dark-green2);
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: right 0.5s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
         list-style: none;
         margin: 0;
         padding: 0;
@@ -112,18 +135,37 @@
         right: 0;
       }
       .nav-links li {
-        margin: 25px 0;
+        margin: 20px 0;
+        opacity: 0;
       }
+      .nav-links.nav-active li {
+        animation: navLinkFade 0.5s ease forwards;
+      }
+      .nav-links.nav-active li:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .nav-links.nav-active li:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .nav-links.nav-active li:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .nav-links.nav-active li:nth-child(4) {
+        animation-delay: 0.5s;
+      }
+
       .nav-links a {
-        color: var(--dark-color);
+        color: var(--text-light-color);
         text-decoration: none;
         text-transform: uppercase;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 500;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
       }
+      .nav-links a:hover,
       .nav-links a.active {
-        color: var(--accent-color-dark-green);
+        color: var(--accent-color-gold);
       }
       .hamburger {
         display: block;
@@ -169,7 +211,7 @@
       .section-title {
         text-align: center;
         font-family: var(--font-heading);
-        font-size: clamp(2.5rem, 8vw, 3.2rem);
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
         color: var(--dark-color);
         margin: 0 auto 20px auto;
         position: relative;
@@ -190,7 +232,7 @@
       }
       .section-subtitle {
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         max-width: 750px;
         margin: 0 auto 100px auto;
         color: var(--text-color);
@@ -201,7 +243,7 @@
       .service-grid-full {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 120px 40px; /* <<< THE FIX: 100px vertical, 60px horizontal */
+        gap: 80px;
       }
       .service-item {
         display: flex;
@@ -286,10 +328,47 @@
         transition-delay: 1.1s;
       }
 
-      /* --- RESPONSIVE STYLES --- */
+      /* --- RESPONSIVE STYLES (SYNCED WITH INDEX.HTML) --- */
+      @media (max-width: 480px) {
+        body {
+          font-size: 14px;
+          line-height: 1.7;
+        }
+        .page-header {
+          padding: 60px 20px;
+        }
+        .page-header h2 {
+          font-size: clamp(2rem, 8vw, 3rem);
+        }
+        .section-title {
+          font-size: clamp(1.6rem, 8vw, 2.4rem);
+        }
+        .section-subtitle {
+          font-size: 0.95rem;
+          margin-bottom: 60px;
+        }
+        .content-section {
+          padding: 90px 0;
+        }
+        .service-item {
+          padding: 25px;
+        }
+        .service-item h3 {
+          font-size: 1.4rem;
+        }
+        .service-item p {
+          font-size: 0.95rem;
+        }
+      }
+
       @media (min-width: 768px) {
         .logo span {
           display: inline-block;
+          font-size: 22px;
+        }
+        .logo img {
+          max-height: 50px;
+          margin-right: 15px;
         }
         .hamburger {
           display: none;
@@ -305,11 +384,27 @@
         }
         .nav-links li {
           margin: 0 20px;
+          opacity: 0;
+          animation: navItemAnimation 0.6s ease forwards;
         }
+        .nav-links li:nth-child(1) {
+          animation-delay: 0.2s;
+        }
+        .nav-links li:nth-child(2) {
+          animation-delay: 0.3s;
+        }
+        .nav-links li:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        .nav-links li:nth-child(4) {
+          animation-delay: 0.5s;
+        }
+
         .nav-links a {
           font-size: 14px;
           white-space: nowrap;
           position: relative;
+          color: var(--dark-color);
         }
         .nav-links a::after {
           content: "";
@@ -328,9 +423,10 @@
         }
         .service-grid-full {
           grid-template-columns: repeat(2, 1fr);
+          gap: 120px 40px;
         }
       }
-      @media (min-width: 1200px) {
+      @media (min-width: 1024px) {
         .logo img {
           max-height: 55px;
         }
@@ -366,7 +462,6 @@
         </nav>
       </div>
     </header>
-
     <section class="page-header hidden">
       <div class="container">
         <h2>Our Comprehensive Services</h2>
@@ -491,7 +586,7 @@
     <footer>
       <div class="container">
         <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
-        <p>Your Premier RTO Consultancy Partner</p>
+        <p>Your RTO Consultancy Partner</p>
       </div>
     </footer>
 
