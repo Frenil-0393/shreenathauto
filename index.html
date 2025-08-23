@@ -12,7 +12,9 @@
       :root {
         --primary-color: #1a1a1a;
         --accent-color-gold: #c5a880;
+        --accent-color-dark-green: #3b4d48;
         --accent-color-secondary: #2c3e50;
+        --accent-color-dark-green2: #24302c;
         --dark-color: #111111;
         --white-color: #ffffff;
         --text-color: #555555;
@@ -45,6 +47,26 @@
         }
         to {
           width: 60px;
+        }
+      }
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes navItemAnimation {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
 
@@ -103,7 +125,7 @@
       /* --- HEADER & NAVIGATION --- */
       header {
         background: var(--white-color);
-        padding: 20px 0;
+        padding: 15px 0; /* Reduced padding for a tighter look */
         border-bottom: 1px solid var(--border-color);
         position: sticky;
         top: 0;
@@ -126,27 +148,31 @@
         font-family: var(--font-heading);
       }
       .logo img {
-        max-height: 50px;
+        max-height: 45px; /* Slightly smaller logo on mobile */
         width: auto;
-        margin-right: 15px;
+        margin-right: 10px;
+        filter: none;
       }
       .logo span {
-        font-size: 22px;
-        display: none;
+        font-size: 16px; /* Font size for mobile */
+        display: inline-block; /* Make it visible on mobile */
+        line-height: 1.2;
       }
+
+      /* Redesigned Mobile Navigation */
       .nav-links {
         position: fixed;
         top: 0;
         right: -100%;
         height: 100vh;
-        width: 70%;
-        max-width: 300px;
-        background: var(--white-color);
+        width: 80%;
+        max-width: 320px;
+        background-color: var(--accent-color-dark-green2);
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: right 0.5s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
         list-style: none;
         margin: 0;
         padding: 0;
@@ -156,19 +182,39 @@
         right: 0;
       }
       .nav-links li {
-        margin: 25px 0;
+        margin: 20px 0;
+        opacity: 0; /* Initially hidden for animation */
       }
+      .nav-links.nav-active li {
+        animation: navLinkFade 0.5s ease forwards;
+      }
+      .nav-links.nav-active li:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .nav-links.nav-active li:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .nav-links.nav-active li:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .nav-links.nav-active li:nth-child(4) {
+        animation-delay: 0.5s;
+      }
+
       .nav-links a {
-        color: var(--dark-color);
+        color: var(--text-light-color);
         text-decoration: none;
         text-transform: uppercase;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 500;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
       }
+      .nav-links a:hover,
       .nav-links a.active {
-        color: var(--accent-color-dark-green);
+        color: var(--accent-color-gold);
       }
+
       .hamburger {
         display: block;
         cursor: pointer;
@@ -206,6 +252,7 @@
         background-position: center;
         position: relative;
         overflow: hidden;
+        margin-top: -76px; /* Adjust for new sticky header height */
       }
       #hero::before {
         content: "";
@@ -214,7 +261,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.6);
         z-index: 1;
       }
       #hero .hero-content {
@@ -238,15 +285,15 @@
       #hero h2 {
         font-family: var(--font-heading);
         font-size: clamp(2.2rem, 10vw, 3.8rem);
-        margin: 0 0 20px 0;
+        margin-bottom: 20px;
         font-weight: 700;
         letter-spacing: 1px;
         text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
       }
       #hero p {
         font-size: clamp(1rem, 4vw, 1.3rem);
-        max-width: 750px;
-        margin: 0 auto 40px auto;
+        max-width: 650px;
+        margin: 0 auto 30px auto;
         font-weight: 300;
         opacity: 0.9;
       }
@@ -286,14 +333,14 @@
         margin-top: 6.5rem;
       }
 
-      /* --- CONTENT & SLOGAN --- */
+      /* --- CONTENT & SECTIONS --- */
       .content-section {
         padding: 120px 0;
       }
       .section-title {
         text-align: center;
         font-family: var(--font-heading);
-        font-size: clamp(2.5rem, 8vw, 3.2rem);
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
         color: var(--dark-color);
         margin: 0 auto 20px auto;
         position: relative;
@@ -314,23 +361,99 @@
       }
       .section-subtitle {
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         max-width: 750px;
         margin: 0 auto 80px auto;
         color: var(--text-color);
         line-height: 1.7;
       }
+
+      /* --- SLOGAN HIGHLIGHT --- */
       .brand-quote {
+        padding: 60px 0;
+      }
+      .brand-quote .slogan-box {
+        position: relative;
         text-align: center;
-        padding: 80px 0;
+        padding: 80px 40px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-lifted);
+        background-image: url("background-texture.jpg");
+        background-size: cover;
+        background-position: center;
+        overflow: hidden; /* Important for pseudo-elements */
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+      }
+      .brand-quote .slogan-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15), var(--glow-shadow);
+      }
+      .brand-quote .slogan-box::before {
+        /* BG Overlay */
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(36, 48, 44, 0.85);
+        z-index: 1;
       }
       .brand-quote p {
+        position: relative; /* To appear above overlay */
+        z-index: 2;
         font-family: var(--font-heading);
-        font-size: clamp(2rem, 5vw, 2.8rem);
-        color: var(--accent-color-dark-green);
+        font-size: clamp(2.2rem, 6.5vw, 3.5rem); /* Increased Font Size */
+        color: var(--accent-color-gold);
         line-height: 1.4;
         margin: 0 auto;
         max-width: 800px;
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
+      }
+
+      /* Animated Border for Slogan Box */
+      .brand-quote .slogan-box .top,
+      .brand-quote .slogan-box .bottom {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color-gold);
+        transition: width 0.4s ease 0.2s;
+        z-index: 3;
+      }
+      .brand-quote .slogan-box .left,
+      .brand-quote .slogan-box .right {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2px;
+        height: 0;
+        background-color: var(--accent-color-gold);
+        transition: height 0.4s ease;
+        z-index: 3;
+      }
+      .brand-quote .slogan-box .top {
+        top: 15px;
+      }
+      .brand-quote .slogan-box .bottom {
+        bottom: 15px;
+      }
+      .brand-quote .slogan-box .left {
+        left: 15px;
+      }
+      .brand-quote .slogan-box .right {
+        right: 15px;
+      }
+
+      .brand-quote .slogan-box:hover .top,
+      .brand-quote .slogan-box:hover .bottom {
+        width: calc(100% - 30px);
+      }
+      .brand-quote .slogan-box:hover .left,
+      .brand-quote .slogan-box:hover .right {
+        height: calc(100% - 30px);
       }
 
       /* --- GRIDS & CARDS --- */
@@ -340,7 +463,7 @@
       .branch-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 120px 60px;
       }
       .service-item,
       .feature-item,
@@ -365,14 +488,14 @@
       .service-item h3 {
         font-family: var(--font-heading);
         color: var(--accent-color-secondary);
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         margin: 0 0 15px 0;
       }
       .feature-item h3,
       .branch-item h3 {
         font-family: var(--font-heading);
         color: var(--dark-color);
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         margin: 0 0 15px 0;
       }
       .service-item p,
@@ -433,7 +556,7 @@
       }
       .team-member h4 {
         font-family: var(--font-heading);
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         margin: 0 0 5px 0;
         color: var(--dark-color);
       }
@@ -486,9 +609,72 @@
       }
 
       /* --- RESPONSIVE STYLES --- */
+      @media (max-width: 480px) {
+        /* Styles for small smartphones */
+        body {
+          font-size: 14px; /* Smaller base font */
+          line-height: 1.7;
+        }
+        #hero h2 {
+          font-size: clamp(1.7rem, 10vw, 2.4rem); /* Smaller hero title */
+        }
+        #hero p {
+          font-size: clamp(0.9rem, 4vw, 1.05rem); /* Smaller hero subtitle */
+        }
+        .section-title {
+          font-size: clamp(1.6rem, 8vw, 2.4rem); /* Smaller section titles */
+        }
+        .section-subtitle {
+          font-size: 0.95rem; /* Smaller subtitles */
+          margin-bottom: 60px;
+        }
+        .brand-quote {
+          padding: 40px 0;
+        }
+        .brand-quote .slogan-box {
+          padding: 60px 25px;
+        }
+        .brand-quote p {
+          font-size: clamp(
+            1.8rem,
+            7vw,
+            2.2rem
+          ); /* Increased Mobile Font Size */
+        }
+        .content-section {
+          padding: 90px 0; /* Tighter vertical padding */
+        }
+        .service-item,
+        .feature-item,
+        .team-member,
+        .branch-item {
+          padding: 25px; /* Tighter card padding */
+        }
+        .service-item h3,
+        .feature-item h3,
+        .branch-item h3 {
+          font-size: 1.3rem;
+        }
+        .team-member h4 {
+          font-size: 1.25rem;
+        }
+        .team-member p {
+          font-size: 0.85rem;
+        }
+        .btn {
+          padding: 12px 28px;
+          font-size: 0.85rem;
+        }
+      }
+
       @media (min-width: 768px) {
         .logo span {
           display: inline-block;
+          font-size: 22px;
+        }
+        .logo img {
+          max-height: 50px;
+          margin-right: 15px;
         }
         .hamburger {
           display: none;
@@ -502,13 +688,29 @@
           box-shadow: none;
           transition: none;
         }
+        /* Desktop Nav Link Animation */
         .nav-links li {
           margin: 0 20px;
+          opacity: 0;
+          animation: navItemAnimation 0.6s ease forwards;
+        }
+        .nav-links li:nth-child(1) {
+          animation-delay: 0.2s;
+        }
+        .nav-links li:nth-child(2) {
+          animation-delay: 0.3s;
+        }
+        .nav-links li:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        .nav-links li:nth-child(4) {
+          animation-delay: 0.5s;
         }
         .nav-links a {
           font-size: 14px;
           white-space: nowrap;
           position: relative;
+          color: var(--dark-color);
         }
         .nav-links a::after {
           content: "";
@@ -532,6 +734,24 @@
         }
         .branch-grid {
           grid-template-columns: repeat(2, 1fr);
+        }
+        /* Restore original font sizes for larger screens */
+        .section-title {
+          font-size: clamp(2.5rem, 8vw, 3.2rem);
+        }
+        .section-subtitle {
+          font-size: 1.2rem;
+        }
+        .brand-quote p {
+          font-size: clamp(2.2rem, 6.5vw, 3.5rem);
+        }
+        .service-item h3,
+        .feature-item h3,
+        .branch-item h3 {
+          font-size: 1.8rem;
+        }
+        .team-member h4 {
+          font-size: 1.6rem;
         }
       }
       @media (min-width: 1024px) {
@@ -637,7 +857,11 @@
 
     <section class="brand-quote">
       <div class="container hidden">
-        <p>"Clarity in Process, Confidence in Outcome."</p>
+        <div class="slogan-box">
+          <span class="top"></span><span class="bottom"></span>
+          <span class="left"></span><span class="right"></span>
+          <p>"Clarity in Process, Confidence in Outcome."</p>
+        </div>
       </div>
     </section>
 
@@ -735,6 +959,7 @@
             <h3>Dhoraji</h3>
             <p>Near Naqsh pan, Jetpur raod, Dhoraji, Rajkot, Gujarat-360410</p>
             <p>Phone: <a href="tel:9099561439">9099561439</a></p>
+            <p>Phone: <a href="tel:9925466261">9925466261</a></p>
           </div>
         </div>
       </div>
@@ -743,12 +968,16 @@
     <footer>
       <div class="container">
         <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
-        <p>Your Premier RTO Consultancy Partner</p>
+        <p>Your RTO Consultancy Partner</p>
       </div>
     </footer>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        // --- Intersection Observer for Content Animations ---
         const observer = new IntersectionObserver(
           (entries, obs) => {
             entries.forEach((entry) => {
@@ -764,8 +993,7 @@
         const hiddenElements = document.querySelectorAll(".hidden");
         hiddenElements.forEach((el) => observer.observe(el));
 
-        const hamburger = document.querySelector(".hamburger");
-        const navLinks = document.querySelector(".nav-links");
+        // --- Hamburger Menu Logic ---
         if (hamburger && navLinks) {
           hamburger.addEventListener("click", () => {
             navLinks.classList.toggle("nav-active");
