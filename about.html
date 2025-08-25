@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Shreenath Auto Advisers</title>
+    <style>
+      /* --- FONT IMPORT --- */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&family=Baloo+Bhai+2:wght@400;500;700&display=swap");
+
+      /* --- ROOT VARIABLES --- */
+      :root {
+        /* Light Mode Palette */
+        --primary-color: #1a1a1a;
+        --accent-color-gold: #c5a880;
+        --accent-color-dark-green: #3b4d48;
+        --accent-color-secondary: #2c3e50;
+        --accent-color-dark-green2: #24302c;
+        --dark-color: #111111;
+        --white-color: #ffffff;
+        --text-color: #555555;
+        --text-light-color: #f0f0f0;
+        --border-color: #ebebeb;
+        --page-header-bg: #fafafa;
+        --shadow-subtle-color: rgba(0, 0, 0, 0.05);
+        --shadow-lifted-color: rgba(0, 0, 0, 0.08);
+        --textured-overlay-color: rgba(10, 20, 20, 0.75);
+
+        /* Universal Variables */
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Inter", sans-serif;
+        --font-gujarati: "Baloo Bhai 2", sans-serif;
+        --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --border-radius: 8px;
+        --shadow-subtle: 0 5px 25px var(--shadow-subtle-color);
+        --shadow-lifted: 0 12px 35px var(--shadow-lifted-color);
+        --glow-shadow: 0 0 40px rgba(197, 168, 128, 0.2);
+      }
+
+      /* --- DARK MODE PALETTE --- */
+      html.dark-mode {
+        --primary-color: #f0f0f0;
+        --dark-color: #ffffff;
+        --white-color: #1a1a1a;
+        --text-color: #a0a0a0;
+        --border-color: #333333;
+        --page-header-bg: #222222;
+        --shadow-subtle-color: rgba(0, 0, 0, 0.2);
+        --shadow-lifted-color: rgba(0, 0, 0, 0.3);
+        --textured-overlay-color: rgba(0, 0, 0, 0.6);
+      }
+
+      /* --- KEYFRAME ANIMATIONS --- */
+      @keyframes revealLine {
+        from {
+          width: 0;
+        }
+        to {
+          width: 60px;
+        }
+      }
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes navItemAnimation {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- BASE STYLES --- */
+      body {
+        font-family: var(--font-body);
+        margin: 0;
+        line-height: 1.8;
+        background-color: var(--white-color);
+        color: var(--text-color);
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0;
+      }
+
+      /* --- DARK TEXTURED BACKGROUND SECTION --- */
+      .bg-textured-dark {
+        background-image: url("background-texture.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+      }
+      .bg-textured-dark::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--textured-overlay-color);
+        z-index: 1;
+        transition: background-color 0.4s ease;
+      }
+      .bg-textured-dark .container {
+        position: relative;
+        z-index: 2;
+      }
+      .bg-textured-dark .section-title {
+        color: var(--accent-color-gold);
+      }
+      .bg-textured-dark .section-subtitle {
+        color: var(--text-light-color);
+        opacity: 0.9;
+      }
+      .bg-textured-dark .feature-item h3 {
+        color: var(--dark-color);
+      }
+      html.dark-mode .bg-textured-dark .feature-item h3 {
+        color: var(--accent-color-gold);
+      }
+      .bg-textured-dark .feature-item p {
+        color: var(--text-color);
+      }
+
+      /* --- HEADER & NAVIGATION --- */
+      header {
+        background: var(--white-color);
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: var(--shadow-subtle);
+        transition: background-color 0.4s ease, border-color 0.4s ease;
+      }
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark-color);
+        font-weight: 700;
+        font-family: var(--font-heading);
+      }
+      .logo img {
+        max-height: 45px;
+        width: auto;
+        margin-right: 10px;
+      }
+      html.dark-mode .logo img {
+        filter: brightness(0) invert(1);
+      }
+      .logo span {
+        font-size: 16px;
+        display: inline-block;
+        line-height: 1.2;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 320px;
+        background-color: #24302c;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      .nav-links.nav-active {
+        right: 0;
+      }
+      .nav-links li {
+        margin: 20px 0;
+        opacity: 0;
+      }
+      .nav-links {
+        margin-top: 0px;
+      }
+      .nav-toggle-item {
+        margin-top: 0px;
+      }
+      .nav-links.nav-active li {
+        animation: navLinkFade 0.5s ease forwards;
+      }
+      .nav-links.nav-active li:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .nav-links.nav-active li:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .nav-links.nav-active li:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .nav-links.nav-active li:nth-child(4) {
+        animation-delay: 0.5s;
+      }
+      .nav-links.nav-active li:nth-child(5) {
+        animation-delay: 0.6s;
+      }
+      .nav-links a {
+        color: var(--text-light-color);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent-color-gold);
+      }
+      .hamburger {
+        display: block;
+        cursor: pointer;
+        z-index: 1001;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        margin: 6px 0;
+        background: var(--dark-color);
+        transition: all 0.3s ease;
+      }
+      .hamburger.toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .hamburger.toggle .line2 {
+        opacity: 0;
+      }
+      .hamburger.toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+      .hamburger.toggle span {
+        background: var(--text-light-color);
+      }
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .theme-toggle,
+      .translate-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--dark-color);
+      }
+      .translate-button img {
+        width: 28px;
+        height: 28px;
+      }
+      .translate-icon-dark {
+        display: none;
+      }
+      html.dark-mode .translate-icon-light {
+        display: none;
+      }
+      html.dark-mode .translate-icon-dark {
+        display: block;
+      }
+      .nav-links .theme-toggle {
+        color: var(--text-light-color);
+      }
+      .theme-toggle .sun-icon,
+      .theme-toggle .moon-icon {
+        width: 24px;
+        height: 24px;
+      }
+      .moon-icon {
+        display: none;
+      }
+      .sun-icon {
+        display: block;
+      }
+      html.dark-mode .moon-icon {
+        display: block;
+      }
+      html.dark-mode .sun-icon {
+        display: none;
+      }
+      .translate-mobile {
+        display: none;
+      }
+
+      /* --- PAGE HEADER --- */
+      .page-header {
+        padding: 80px 20px;
+        text-align: center;
+        background-color: var(--page-header-bg);
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.4s ease, border-color 0.4s ease;
+      }
+      .page-header h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        color: var(--dark-color);
+        margin: 0;
+      }
+
+      /* --- CONTENT & SECTIONS --- */
+      .content-section {
+        padding: 120px 0;
+      }
+      .section-title {
+        text-align: center;
+        font-family: var(--font-heading);
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
+        color: var(--dark-color);
+        margin: 0 auto 20px auto;
+        position: relative;
+        width: fit-content;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 3px;
+        background-color: var(--accent-color-gold);
+        width: 0;
+      }
+      .visible .section-title::after {
+        animation: revealLine 1s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+      }
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        max-width: 750px;
+        margin: 0 auto 80px auto;
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+      .about-content p {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto 25px auto;
+        text-align: center;
+        line-height: 1.9;
+      }
+      html.dark-mode .about-content strong {
+        color: var(--accent-color-gold);
+      }
+
+      /* --- GRIDS & CARDS --- */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .team-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        justify-content: center;
+      }
+      .feature-item,
+      .team-member {
+        background: var(--white-color);
+        padding: 40px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-subtle);
+        transition: var(--transition-smooth);
+      }
+      .feature-item:hover,
+      .team-member:hover {
+        transform: translateY(-12px);
+        box-shadow: var(--shadow-lifted), var(--glow-shadow);
+      }
+      .feature-item h3 {
+        font-family: var(--font-heading);
+        color: var(--dark-color);
+        font-size: 1.8rem;
+        margin: 0 0 15px 0;
+      }
+      .feature-item p {
+        margin: 0;
+      }
+      .team-photo-wrapper {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        margin: 0 auto 25px auto;
+        border-radius: 50%;
+        transition: var(--transition-smooth);
+      }
+      .team-photo-wrapper::before {
+        content: "";
+        position: absolute;
+        top: -7px;
+        left: -7px;
+        right: -7px;
+        bottom: -7px;
+        border: 2px solid var(--accent-color-gold);
+        border-radius: 50%;
+        transform: scale(0.9);
+        opacity: 0;
+        transition: var(--transition-smooth);
+      }
+      .team-member:hover .team-photo-wrapper::before {
+        transform: scale(1);
+        opacity: 1;
+      }
+      .team-member img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: var(--shadow-lifted);
+      }
+      .team-member h4 {
+        font-family: var(--font-heading);
+        font-size: 1.6rem;
+        margin: 0 0 5px 0;
+        color: var(--dark-color);
+      }
+      .team-member p {
+        color: var(--accent-color-dark-green);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+      html.dark-mode .team-member p {
+        color: var(--accent-color-gold);
+        opacity: 0.8;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        background: var(--primary-color);
+        color: #a0a0a0;
+        text-align: center;
+        padding: 60px 20px;
+        transition: background-color 0.4s ease;
+      }
+      html.dark-mode footer {
+        background-color: #111;
+      }
+      footer p {
+        margin: 5px 0;
+      }
+
+      /* --- ANIMATIONS --- */
+      .hidden {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        will-change: transform, opacity;
+      }
+      .visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stagger-animation .hidden {
+        transition-delay: calc(0.15s * var(--stagger-index));
+      }
+      [data-lang-key] {
+        transition: opacity 0.3s ease-in-out;
+      }
+      body.is-translating [data-lang-key] {
+        opacity: 0;
+      }
+
+      /* --- GUJARATI LANGUAGE STYLES --- */
+      body.gujarati-font {
+        font-family: var(--font-gujarati);
+        line-height: 1.9;
+      }
+      body.gujarati-font h1,
+      body.gujarati-font h2,
+      body.gujarati-font h3,
+      body.gujarati-font h4 {
+        font-family: var(--font-gujarati);
+      }
+      body.gujarati-font .logo span {
+        font-family: var(--font-gujarati);
+      }
+      body.gujarati-font .nav-links a {
+        font-size: 16px;
+      }
+      body.gujarati-font .nav-links li a {
+        font-size: 20px;
+      }
+      body.gujarati-font .section-title {
+        font-weight: 600;
+      }
+
+      /* --- RESPONSIVE STYLES --- */
+      @media (max-width: 767px) {
+        body {
+          font-size: 14px;
+          line-height: 1.7;
+        }
+        .page-header {
+          padding: 60px 20px;
+        }
+        .page-header h2 {
+          font-size: clamp(2rem, 8vw, 2.8rem);
+        }
+        .section-title {
+          font-size: clamp(1.6rem, 8vw, 2.4rem);
+        }
+        .section-subtitle {
+          font-size: 0.95rem;
+          margin-bottom: 60px;
+        }
+        .about-content p {
+          font-size: 0.95rem;
+          line-height: 1.8;
+        }
+        .content-section {
+          padding: 90px 0;
+        }
+        .feature-item,
+        .team-member {
+          padding: 25px;
+        }
+        .feature-item h3 {
+          font-size: 1.4rem;
+        }
+        .team-member h4 {
+          font-size: 1.25rem;
+        }
+        .team-member p {
+          font-size: 0.85rem;
+        }
+        .team-photo-wrapper {
+          width: 140px;
+          height: 140px;
+        }
+        .translate-desktop {
+          display: none;
+        }
+        .translate-mobile {
+          display: flex;
+        }
+        body.gujarati-font {
+          font-size: 15.5px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .logo span {
+          display: inline-block;
+          font-size: 22px;
+        }
+        .logo img {
+          max-height: 50px;
+          margin-right: 15px;
+        }
+        .hamburger {
+          display: none;
+        }
+        .nav-toggle-item {
+          display: list-item;
+          margin: 0;
+        }
+        .nav-controls {
+          gap: 0;
+        }
+        .nav-links {
+          position: static;
+          flex-direction: row;
+          height: auto;
+          width: auto;
+          background: none;
+          box-shadow: none;
+          transition: none;
+          align-items: center;
+        }
+        .nav-links li {
+          margin: 0 20px;
+          opacity: 0;
+          animation: navItemAnimation 0.6s ease forwards;
+        }
+        .nav-links .nav-toggle-item {
+          margin: 0;
+        }
+        .nav-links li:nth-child(1) {
+          animation-delay: 0.2s;
+        }
+        .nav-links li:nth-child(2) {
+          animation-delay: 0.3s;
+        }
+        .nav-links li:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        .nav-links li:nth-child(4) {
+          animation-delay: 0.5s;
+        }
+        .nav-links li:nth-child(5) {
+          animation-delay: 0.6s;
+        }
+        .nav-links li:nth-child(6) {
+          animation-delay: 0.7s;
+        }
+        .nav-links a {
+          font-size: 14px;
+          white-space: nowrap;
+          position: relative;
+          color: var(--dark-color);
+        }
+        .nav-links .theme-toggle {
+          color: var(--dark-color);
+        }
+        .nav-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: var(--accent-color-dark-green);
+          transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+          width: 100%;
+        }
+        .feature-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .team-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .logo img {
+          max-height: 55px;
+        }
+        .logo span {
+          font-size: 24px;
+        }
+      }
+    </style>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (theme === "dark" || (!theme && prefersDark)) {
+          document.documentElement.classList.add("dark-mode");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="Shreenath Auto Advisers Logo" />
+            <span data-lang-key="companyName">Shreenath Auto Advisers</span>
+          </a>
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" data-lang-key="home">Home</a></li>
+            <li>
+              <a href="about.html" class="active" data-lang-key="about"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a href="services.html" data-lang-key="services">Services</a>
+            </li>
+            <li>
+              <a href="contact.html" data-lang-key="contact">Contact</a>
+            </li>
+            <li class="nav-toggle-item">
+              <button class="theme-toggle" title="Toggle theme">
+                <svg
+                  class="sun-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg
+                  class="moon-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                  ></path>
+                </svg>
+              </button>
+            </li>
+            <li class="translate-desktop">
+              <button class="translate-button" title="Toggle Language">
+                <img
+                  class="translate-icon-light"
+                  src="language_icon_dark.png"
+                  alt="Translate Icon"
+                />
+                <img
+                  class="translate-icon-dark"
+                  src="language_icon_light.png"
+                  alt="Translate Icon"
+                />
+              </button>
+            </li>
+          </ul>
+          <div class="nav-controls">
+            <button
+              class="translate-button translate-mobile"
+              title="Toggle Language"
+            >
+              <img
+                class="translate-icon-light"
+                src="language_icon_dark.png"
+                alt="Translate Icon"
+              />
+              <img
+                class="translate-icon-dark"
+                src="language_icon_light.png"
+                alt="Translate Icon"
+              />
+            </button>
+            <div class="hamburger">
+              <span class="line1"></span> <span class="line2"></span>
+              <span class="line3"></span>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section class="page-header hidden">
+      <div class="container">
+        <h2 data-lang-key="pageTitle">Our Story & Commitment</h2>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container hidden">
+        <div class="about-content">
+          <h2 class="section-title" data-lang-key="whoWeAre">Who We Are</h2>
+          <p data-lang-key="p1">
+            Welcome to Shreenath Auto Advisers. Our story is one of dedicated
+            growth and unwavering commitment to serving our community's RTO
+            needs. Our journey began with the establishment of our first branch
+            in Jamkandorana, initially named
+            <strong>"Anupam Auto Advisers"</strong>. Founded on the principles
+            of integrity and efficiency, we quickly built a reputation for
+            reliable service.
+          </p>
+          <p data-lang-key="p2">
+            As our vision grew, we rebranded to
+            <strong>Shreenath Auto Advisers</strong> to better reflect our
+            expanding commitment to providing a comprehensive, client-focused
+            consultancy. This change marked a new chapter, reinforcing our goal
+            to ensure a smooth, transparent, and hassle-free experience for
+            every vehicle owner.
+          </p>
+          <p data-lang-key="p3">
+            Fueled by the trust of our clients, we celebrated a significant
+            milestone a few years later with the inauguration of our second
+            branch in <strong>Dhoraji</strong>. This expansion allowed us to
+            bring our expert advice and hands-on assistance to an even wider
+            audience, making complex RTO matters simple and accessible for all.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section bg-textured-dark">
+      <div class="container hidden">
+        <h2 class="section-title" data-lang-key="missionTitle">
+          Our Mission and Values
+        </h2>
+        <p class="section-subtitle" data-lang-key="missionSubtitle">
+          Our mission is simple: to simplify the complexities of the RTO. We
+          achieve this by adhering to our core values in every task we
+          undertake.
+        </p>
+        <div class="feature-grid stagger-animation">
+          <div class="feature-item hidden" style="--stagger-index: 1">
+            <h3 data-lang-key="v1Title">Reliability</h3>
+            <p data-lang-key="v1Desc">
+              We deliver on our promises. When we take on your work, you can be
+              confident that it will be completed accurately and on time.
+            </p>
+          </div>
+          <div class="feature-item hidden" style="--stagger-index: 2">
+            <h3 data-lang-key="v2Title">Transparency</h3>
+            <p data-lang-key="v2Desc">
+              We believe in clear and honest communication. You will always be
+              kept informed about the status of your work and the costs
+              involved, with no hidden surprises.
+            </p>
+          </div>
+          <div class="feature-item hidden" style="--stagger-index: 3">
+            <h3 data-lang-key="v3Title">Customer Focus</h3>
+            <p data-lang-key="v3Desc">
+              We build long-term relationships based on trust. We are here to
+              guide you every step of the way and ensure your complete
+              satisfaction.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container hidden">
+        <h2 class="section-title" data-lang-key="teamTitle">
+          Meet Our Experts
+        </h2>
+        <p class="section-subtitle" data-lang-key="teamSubtitle">
+          Our team is our greatest asset. With a wealth of experience and a
+          passion for service, our experts are ready to assist you with
+          dedication and professionalism.
+        </p>
+        <div class="team-grid stagger-animation">
+          <div class="team-member hidden" style="--stagger-index: 1">
+            <div class="team-photo-wrapper">
+              <img src="chetan.jpg" alt="Chetan Patel" />
+            </div>
+            <h4>Chetan Patel</h4>
+            <p data-lang-key="t1Role">Founder & RTO Adviser</p>
+          </div>
+          <div class="team-member hidden" style="--stagger-index: 2">
+            <div class="team-photo-wrapper">
+              <img src="jasmin.jpg" alt="Jasmin Patel" />
+            </div>
+            <h4>Jasmin Patel</h4>
+            <p data-lang-key="t2Role">Technical Specialist</p>
+          </div>
+          <div class="team-member hidden" style="--stagger-index: 3">
+            <div class="team-photo-wrapper">
+              <img src="divyesh.jpg" alt="Divyesh Patel" />
+            </div>
+            <h4>Divyesh Patel</h4>
+            <p data-lang-key="t3Role">Branch Manager, Dhoraji</p>
+          </div>
+          <div class="team-member hidden" style="--stagger-index: 4">
+            <div class="team-photo-wrapper">
+              <img src="frenil.jpg" alt="Frenil Patel" />
+            </div>
+            <h4>Frenil Patel</h4>
+            <p data-lang-key="t4Role">Designer and developer of Website</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p data-lang-key="copyright">
+          &copy; 2025 Shreenath Auto Advisers. All Rights Reserved.
+        </p>
+        <p data-lang-key="tagline">Your RTO Consultancy Partner</p>
+      </div>
+    </footer>
+
+    <script>
+      const translations = {
+        en: {
+          companyName: "Shreenath Auto Advisers",
+          home: "Home",
+          about: "About Us",
+          services: "Services",
+          contact: "Contact",
+          pageTitle: "Our Story & Commitment",
+          whoWeAre: "Who We Are",
+          p1: "Welcome to Shreenath Auto Advisers. Our story is one of dedicated growth and unwavering commitment to serving our community's RTO needs. Our journey began with the establishment of our first branch in Jamkandorana, initially named <strong>'Anupam Auto Advisers'</strong>. Founded on the principles of integrity and efficiency, we quickly built a reputation for reliable service.",
+          p2: "As our vision grew, we rebranded to <strong>Shreenath Auto Advisers</strong> to better reflect our expanding commitment to providing a comprehensive, client-focused consultancy. This change marked a new chapter, reinforcing our goal to ensure a smooth, transparent, and hassle-free experience for every vehicle owner.",
+          p3: "Fueled by the trust of our clients, we celebrated a significant milestone a few years later with the inauguration of our second branch in <strong>Dhoraji</strong>. This expansion allowed us to bring our expert advice and hands-on assistance to an even wider audience, making complex RTO matters simple and accessible for all.",
+          missionTitle: "Our Mission and Values",
+          missionSubtitle:
+            "Our mission is simple: to simplify the complexities of the RTO. We achieve this by adhering to our core values in every task we undertake.",
+          v1Title: "Reliability",
+          v1Desc:
+            "We deliver on our promises. When we take on your work, you can be confident that it will be completed accurately and on time.",
+          v2Title: "Transparency",
+          v2Desc:
+            "We believe in clear and honest communication. You will always be kept informed about the status of your work and the costs involved, with no hidden surprises.",
+          v3Title: "Customer Focus",
+          v3Desc:
+            "We build long-term relationships based on trust. We are here to guide you every step of the way and ensure your complete satisfaction.",
+          teamTitle: "Meet Our Experts",
+          teamSubtitle:
+            "Our team is our greatest asset. With a wealth of experience and a passion for service, our experts are ready to assist you with dedication and professionalism.",
+          t1Role: "Founder & RTO Adviser",
+          t2Role: "Technical Specialist",
+          t3Role: "Branch Manager, Dhoraji",
+          t4Role: "Designer and developer of Website",
+          copyright:
+            "&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.",
+          tagline: "Your RTO Consultancy Partner",
+        },
+        gu: {
+          companyName: "શ્રીનાથ ઓટો એડવાઇઝર્સ",
+          home: "હોમ",
+          about: "અમારા વિશે",
+          services: "સેવાઓ",
+          contact: "સંપર્ક",
+          pageTitle: "અમારી વાર્તા અને પ્રતિબદ્ધતા",
+          whoWeAre: "અમે કોણ છીએ",
+          p1: "શ્રીનાથ ઓટો એડવાઇઝર્સમાં આપનું સ્વાગત છે. અમારી વાર્તા સમર્પિત વિકાસ અને અમારા સમુદાયની RTO જરૂરિયાતોને સેવા આપવા માટેની અતૂટ પ્રતિબદ્ધતાની છે. અમારી યાત્રા જામકંડોરણામાં અમારી પ્રથમ શાખાની સ્થાપના સાથે શરૂ થઈ, જેનું પ્રારંભિક નામ <strong>'અનુપમ ઓટો એડવાઇઝર્સ'</strong> હતું. અખંડિતતા અને કાર્યક્ષમતાના સિદ્ધાંતો પર સ્થપાયેલી, અમે ઝડપથી વિશ્વસનીય સેવા માટે પ્રતિષ્ઠા બનાવી.",
+          p2: "જેમ જેમ અમારી દ્રષ્ટિ વિકસતી ગઈ, તેમ અમે એક વ્યાપક, ગ્રાહક-કેન્દ્રિત કન્સલ્ટન્સી પ્રદાન કરવા માટે અમારી વિસ્તરતી પ્રતિબદ્ધતાને વધુ સારી રીતે પ્રતિબિંબિત કરવા માટે <strong>શ્રીનાથ ઓટો એડવાઇઝર્સ</strong> તરીકે રિબ્રાન્ડ કર્યું. આ ફેરફારે એક નવો અધ્યાય ચિહ્નિત કર્યો, દરેક વાહન માલિક માટે એક સરળ, પારદર્શક અને મુશ્કેલી-મુક્ત અનુભવ સુનિશ્ચિત કરવાના અમારા લક્ષ્યને મજબૂત બનાવ્યો.",
+          p3: "અમારા ગ્રાહકોના વિશ્વાસથી પ્રેરિત થઈને, અમે થોડા વર્ષો પછી <strong>ધોરાજી</strong>માં અમારી બીજી શાખાના ઉદ્ઘાટન સાથે એક મહત્વપૂર્ણ સીમાચિહ્નરૂપ ઉજવણી કરી. આ વિસ્તરણથી અમને અમારી નિષ્ણાત સલાહ અને હાથ પર સહાયને વધુ વ્યાપક પ્રેક્ષકો સુધી પહોંચાડવાની મંજૂરી મળી, જટિલ RTO બાબતોને બધા માટે સરળ અને સુલભ બનાવી.",
+          missionTitle: "અમારું મિશન અને મૂલ્યો",
+          missionSubtitle:
+            "અમારું મિશન સરળ છે: RTO ની જટિલતાઓને સરળ બનાવવી. અમે જે પણ કાર્ય હાથ ધરીએ છીએ તેમાં અમારા મૂળભૂત મૂલ્યોનું પાલન કરીને અમે આ પ્રાપ્ત કરીએ છીએ.",
+          v1Title: "વિશ્વસનીયતા",
+          v1Desc:
+            "અમે અમારા વચનો પૂરા કરીએ છીએ. જ્યારે અમે તમારું કામ હાથમાં લઈએ છીએ, ત્યારે તમે વિશ્વાસ રાખી શકો છો કે તે ચોક્કસ અને સમયસર પૂર્ણ થશે.",
+          v2Title: "પારદર્શિતા",
+          v2Desc:
+            "અમે સ્પષ્ટ અને પ્રમાણિક સંદેશાવ્યવહારમાં માનીએ છીએ. તમને હંમેશા તમારા કામની સ્થિતિ અને તેમાં સામેલ ખર્ચ વિશે માહિતગાર રાખવામાં આવશે, કોઈ છુપાયેલા આશ્ચર્ય વિના.",
+          v3Title: "ગ્રાહક કેન્દ્રિતતા",
+          v3Desc:
+            "અમે વિશ્વાસ પર આધારિત લાંબા ગાળાના સંબંધો બનાવીએ છીએ. અમે તમને દરેક પગલે માર્ગદર્શન આપવા અને તમારી સંપૂર્ણ સંતોષ સુનિશ્ચિત કરવા માટે અહીં છીએ.",
+          teamTitle: "અમારા નિષ્ણાતોને મળો",
+          teamSubtitle:
+            "અમારી ટીમ અમારી સૌથી મોટી સંપત્તિ છે. અનુભવની સંપત્તિ અને સેવાનો જુસ્સો સાથે, અમારા નિષ્ણાતો તમને સમર્પણ અને વ્યાવસાયીકરણ સાથે સહાય કરવા માટે તૈયાર છે.",
+          t1Role: "સ્થાપક અને RTO સલાહકાર",
+          t2Role: "ટેકનિકલ નિષ્ણાત",
+          t3Role: "શાખા સંચાલક, ધોરાજી",
+          t4Role: "વેબસાઇટના ડિઝાઇનર અને ડેવલપર",
+          copyright:
+            "&copy; 2025 શ્રીનાથ ઓટો એડવાઇઝર્સ. સર્વાધિકાર સુરક્ષિત.",
+          tagline: "તમારા RTO કન્સલ્ટન્સી પાર્ટનર",
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- ANIMATION FIX ---
+        const pageHeader = document.querySelector(".page-header");
+        if (pageHeader) {
+          pageHeader.classList.add("visible");
+        }
+
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        // Observer now only targets elements within other sections
+        const hiddenElements = document.querySelectorAll(
+          ".content-section .hidden"
+        );
+        hiddenElements.forEach((el) => observer.observe(el));
+        // --- END ANIMATION FIX ---
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        const htmlEl = document.documentElement;
+
+        if (hamburger && navLinks) {
+          hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("nav-active");
+            hamburger.classList.toggle("toggle");
+          });
+
+          document.addEventListener("click", (e) => {
+            if (
+              navLinks.classList.contains("nav-active") &&
+              !navLinks.contains(e.target) &&
+              !hamburger.contains(e.target)
+            ) {
+              navLinks.classList.remove("nav-active");
+              hamburger.classList.remove("toggle");
+            }
+          });
+        }
+
+        const themeToggles = document.querySelectorAll(".theme-toggle");
+        themeToggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            htmlEl.classList.toggle("dark-mode");
+            if (htmlEl.classList.contains("dark-mode")) {
+              localStorage.setItem("theme", "dark");
+            } else {
+              localStorage.setItem("theme", "light");
+            }
+          });
+        });
+
+        const setLanguage = (language) => {
+          document.body.classList.add("is-translating");
+          setTimeout(() => {
+            document
+              .querySelectorAll("[data-lang-key]")
+              .forEach((element) => {
+                const key = element.getAttribute("data-lang-key");
+                if (translations[language] && translations[language][key]) {
+                  element.innerHTML = translations[language][key];
+                }
+              });
+            htmlEl.lang = language;
+            localStorage.setItem("language", language);
+
+            if (language === "gu") {
+              document.body.classList.add("gujarati-font");
+            } else {
+              document.body.classList.remove("gujarati-font");
+            }
+            document.body.classList.remove("is-translating");
+          }, 300);
+        };
+
+        const toggleLanguage = () => {
+          const currentLang = localStorage.getItem("language") || "en";
+          const newLang = currentLang === "en" ? "gu" : "en";
+          setLanguage(newLang);
+        };
+
+        document.querySelectorAll(".translate-button").forEach((button) => {
+          button.addEventListener("click", toggleLanguage);
+        });
+
+        const savedLanguage = localStorage.getItem("language");
+        if (savedLanguage) {
+          setLanguage(savedLanguage);
+        } else {
+          setLanguage("en"); // Default to English
+        }
+      });
+    </script>
+  </body>
+</html>

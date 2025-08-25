@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Services - Shreenath Auto Advisers</title>
+    <style>
+      /* --- FONT IMPORT --- */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&family=Baloo+Bhai+2:wght@400;500;700&display=swap");
+
+      /* --- ROOT VARIABLES --- */
+      :root {
+        /* Light Mode Palette */
+        --primary-color: #1a1a1a;
+        --accent-color-gold: #c5a880;
+        --accent-color-dark-green: #3b4d48;
+        --accent-color-secondary: #2c3e50;
+        --dark-color: #111111;
+        --white-color: #ffffff;
+        --text-color: #555555;
+        --text-light-color: #f0f0f0;
+        --border-color: #ebebeb;
+        --page-header-bg: #fafafa;
+        --shadow-subtle-color: rgba(0, 0, 0, 0.05);
+        --shadow-lifted-color: rgba(0, 0, 0, 0.08);
+
+        /* Universal Variables */
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Inter", sans-serif;
+        --font-gujarati: "Baloo Bhai 2", sans-serif;
+        --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --border-radius: 8px;
+        --shadow-subtle: 0 5px 25px var(--shadow-subtle-color);
+        --shadow-lifted: 0 12px 35px var(--shadow-lifted-color);
+        --glow-shadow: 0 0 40px rgba(197, 168, 128, 0.2);
+      }
+
+      /* --- DARK MODE PALETTE --- */
+      html.dark-mode {
+        --primary-color: #f0f0f0;
+        --dark-color: #ffffff;
+        --white-color: #1a1a1a;
+        --text-color: #a0a0a0;
+        --border-color: #333333;
+        --page-header-bg: #222222;
+        --shadow-subtle-color: rgba(0, 0, 0, 0.2);
+        --shadow-lifted-color: rgba(0, 0, 0, 0.3);
+      }
+
+      /* --- KEYFRAME ANIMATIONS --- */
+      @keyframes revealLine {
+        from {
+          width: 0;
+        }
+        to {
+          width: 60px;
+        }
+      }
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes navItemAnimation {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- BASE STYLES --- */
+      body {
+        font-family: var(--font-body);
+        margin: 0;
+        line-height: 1.8;
+        background-color: var(--white-color);
+        color: var(--text-color);
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0;
+      }
+
+      /* --- HEADER & NAVIGATION --- */
+      header {
+        background: var(--white-color);
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: var(--shadow-subtle);
+        transition: background-color 0.4s ease, border-color 0.4s ease;
+      }
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark-color);
+        font-weight: 700;
+        font-family: var(--font-heading);
+      }
+      .logo img {
+        max-height: 45px;
+        width: auto;
+        margin-right: 10px;
+      }
+      html.dark-mode .logo img {
+        filter: brightness(0) invert(1);
+      }
+      .logo span {
+        font-size: 16px;
+        display: inline-block;
+        line-height: 1.2;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 320px;
+        background-color: #24302c;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      .nav-links.nav-active {
+        right: 0;
+      }
+      .nav-links li {
+        margin: 20px 0;
+        opacity: 0;
+      }
+      .nav-links {
+        margin-top: 0px;
+      }
+      .nav-toggle-item {
+        margin-top: 0px;
+      }
+      .nav-links.nav-active li {
+        animation: navLinkFade 0.5s ease forwards;
+      }
+      .nav-links.nav-active li:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .nav-links.nav-active li:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .nav-links.nav-active li:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .nav-links.nav-active li:nth-child(4) {
+        animation-delay: 0.5s;
+      }
+      .nav-links.nav-active li:nth-child(5) {
+        animation-delay: 0.6s;
+      }
+      .nav-links a {
+        color: var(--text-light-color);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent-color-gold);
+      }
+      .hamburger {
+        display: block;
+        cursor: pointer;
+        z-index: 1001;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        margin: 6px 0;
+        background: var(--dark-color);
+        transition: all 0.3s ease;
+      }
+      .hamburger.toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .hamburger.toggle .line2 {
+        opacity: 0;
+      }
+      .hamburger.toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+      .hamburger.toggle span {
+        background: var(--text-light-color);
+      }
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .theme-toggle,
+      .translate-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--dark-color);
+      }
+      .translate-button img {
+        width: 28px;
+        height: 28px;
+      }
+      .translate-icon-dark {
+        display: none;
+      }
+      html.dark-mode .translate-icon-light {
+        display: none;
+      }
+      html.dark-mode .translate-icon-dark {
+        display: block;
+      }
+      .nav-links .theme-toggle {
+        color: var(--text-light-color);
+      }
+      .theme-toggle .sun-icon,
+      .theme-toggle .moon-icon {
+        width: 24px;
+        height: 24px;
+      }
+      .moon-icon {
+        display: none;
+      }
+      .sun-icon {
+        display: block;
+      }
+      html.dark-mode .moon-icon {
+        display: block;
+      }
+      html.dark-mode .sun-icon {
+        display: none;
+      }
+      .translate-mobile {
+        display: none;
+      }
+
+      /* --- PAGE HEADER --- */
+      .page-header {
+        padding: 80px 20px;
+        text-align: center;
+        background-color: var(--page-header-bg);
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.4s ease, border-color 0.4s ease;
+      }
+      .page-header h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        color: var(--dark-color);
+        margin: 0;
+      }
+
+      /* --- CONTENT & SECTIONS --- */
+      .content-section {
+        padding: 120px 0;
+      }
+      .section-title {
+        text-align: center;
+        font-family: var(--font-heading);
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
+        color: var(--dark-color);
+        margin: 0 auto 20px auto;
+        position: relative;
+        width: fit-content;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 3px;
+        background-color: var(--accent-color-dark-green);
+        width: 0;
+      }
+      .visible .section-title::after {
+        animation: revealLine 1s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+      }
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        max-width: 750px;
+        margin: 0 auto 100px auto;
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+
+      /* --- GRIDS & CARDS --- */
+      .service-grid-full {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 100px 20px;
+      }
+      .service-item {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background: var(--white-color);
+        padding: 40px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-subtle);
+        transition: var(--transition-smooth);
+      }
+      .service-item:hover {
+        transform: translateY(-12px);
+        box-shadow: var(--shadow-lifted), var(--glow-shadow);
+      }
+      .service-item h3 {
+        font-family: var(--font-heading);
+        color: var(--accent-color-secondary);
+        font-size: 1.8rem;
+        margin: 0 0 15px 0;
+      }
+      html.dark-mode .service-item h3 {
+        color: var(--accent-color-gold);
+      }
+      .service-item p {
+        margin: 0;
+        flex-grow: 1;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        background: var(--primary-color);
+        color: #a0a0a0;
+        text-align: center;
+        padding: 60px 20px;
+        transition: background-color 0.4s ease;
+      }
+      html.dark-mode footer {
+        background-color: #111;
+      }
+      footer p {
+        margin: 5px 0;
+      }
+
+      /* --- ANIMATIONS --- */
+      .hidden {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        will-change: transform, opacity;
+      }
+      .visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stagger-animation .hidden {
+        transition-delay: calc(0.1s * var(--stagger-index));
+      }
+      [data-lang-key] {
+        transition: opacity 0.3s ease-in-out;
+      }
+      body.is-translating [data-lang-key] {
+        opacity: 0;
+      }
+
+      /* --- GUJARATI LANGUAGE STYLES --- */
+      body.gujarati-font {
+        font-family: var(--font-gujarati);
+        line-height: 1.9;
+      }
+      body.gujarati-font h1,
+      body.gujarati-font h2,
+      body.gujarati-font h3,
+      body.gujarati-font h4 {
+        font-family: var(--font-gujarati);
+      }
+      body.gujarati-font .logo span {
+        font-family: var(--font-gujarati);
+      }
+      body.gujarati-font .nav-links a {
+        font-size: 16px;
+      }
+      body.gujarati-font .nav-links li a {
+        font-size: 20px;
+      }
+      body.gujarati-font .section-title {
+        font-weight: 600;
+      }
+
+      /* --- RESPONSIVE STYLES --- */
+      @media (max-width: 767px) {
+        body {
+          font-size: 14px;
+          line-height: 1.7;
+        }
+        .page-header {
+          padding: 60px 20px;
+        }
+        .page-header h2 {
+          font-size: clamp(2rem, 8vw, 3rem);
+        }
+        .section-title {
+          font-size: clamp(1.6rem, 8vw, 2.4rem);
+        }
+        .section-subtitle {
+          font-size: 0.95rem;
+          margin-bottom: 60px;
+        }
+        .content-section {
+          padding: 90px 0;
+        }
+        .service-item {
+          padding: 25px;
+        }
+        .service-item h3 {
+          font-size: 1.4rem;
+        }
+        .service-item p {
+          font-size: 0.95rem;
+        }
+        .translate-desktop {
+          display: none;
+        }
+        .translate-mobile {
+          display: flex;
+        }
+        body.gujarati-font {
+          font-size: 15.5px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .logo span {
+          display: inline-block;
+          font-size: 22px;
+        }
+        .logo img {
+          max-height: 50px;
+          margin-right: 15px;
+        }
+        .hamburger {
+          display: none;
+        }
+        .nav-toggle-item {
+          display: list-item;
+          margin: 0;
+        }
+        .nav-controls {
+          gap: 0;
+        }
+        .nav-links {
+          position: static;
+          flex-direction: row;
+          height: auto;
+          width: auto;
+          background: none;
+          box-shadow: none;
+          transition: none;
+          align-items: center;
+        }
+        .nav-links li {
+          margin: 0 20px;
+          opacity: 0;
+          animation: navItemAnimation 0.6s ease forwards;
+        }
+        .nav-links .nav-toggle-item {
+          margin: 0;
+        }
+        .nav-links li:nth-child(1) {
+          animation-delay: 0.2s;
+        }
+        .nav-links li:nth-child(2) {
+          animation-delay: 0.3s;
+        }
+        .nav-links li:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        .nav-links li:nth-child(4) {
+          animation-delay: 0.5s;
+        }
+        .nav-links li:nth-child(5) {
+          animation-delay: 0.6s;
+        }
+        .nav-links li:nth-child(6) {
+          animation-delay: 0.7s;
+        }
+        .nav-links a {
+          font-size: 14px;
+          white-space: nowrap;
+          position: relative;
+          color: var(--dark-color);
+        }
+        .nav-links .theme-toggle {
+          color: var(--dark-color);
+        }
+        .nav-links a::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: var(--accent-color-dark-green);
+          transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+          width: 100%;
+        }
+        .service-grid-full {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .logo img {
+          max-height: 55px;
+        }
+        .logo span {
+          font-size: 24px;
+        }
+        .service-grid-full {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (theme === "dark" || (!theme && prefersDark)) {
+          document.documentElement.classList.add("dark-mode");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="Shreenath Auto Advisers Logo" />
+            <span data-lang-key="companyName">Shreenath Auto Advisers</span>
+          </a>
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" data-lang-key="home">Home</a></li>
+            <li><a href="about.html" data-lang-key="about">About Us</a></li>
+            <li>
+              <a href="services.html" class="active" data-lang-key="services"
+                >Services</a
+              >
+            </li>
+            <li>
+              <a href="contact.html" data-lang-key="contact">Contact</a>
+            </li>
+            <li class="nav-toggle-item">
+              <button class="theme-toggle" title="Toggle theme">
+                <svg
+                  class="sun-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg
+                  class="moon-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                  ></path>
+                </svg>
+              </button>
+            </li>
+            <li class="translate-desktop">
+              <button class="translate-button" title="Toggle Language">
+                <img
+                  class="translate-icon-light"
+                  src="language_icon_dark.png"
+                  alt="Translate Icon"
+                />
+                <img
+                  class="translate-icon-dark"
+                  src="language_icon_light.png"
+                  alt="Translate Icon"
+                />
+              </button>
+            </li>
+          </ul>
+          <div class="nav-controls">
+            <button
+              class="translate-button translate-mobile"
+              title="Toggle Language"
+            >
+              <img
+                class="translate-icon-light"
+                src="language_icon_dark.png"
+                alt="Translate Icon"
+              />
+              <img
+                class="translate-icon-dark"
+                src="language_icon_light.png"
+                alt="Translate Icon"
+              />
+            </button>
+            <div class="hamburger">
+              <span class="line1"></span> <span class="line2"></span>
+              <span class="line3"></span>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <section class="page-header hidden">
+      <div class="container">
+        <h2 data-lang-key="pageTitle">Our Comprehensive Services</h2>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container hidden">
+        <h2 class="section-title" data-lang-key="sectionTitle">
+          A Solution for Every Need
+        </h2>
+        <p class="section-subtitle" data-lang-key="sectionSubtitle">
+          At Shreenath Auto Advisers, we offer a complete suite of RTO services
+          designed to cover every possible requirement. Whether you are a new
+          vehicle owner or need to manage documentation for an existing vehicle,
+          our expert team is equipped to handle each task with precision and
+          care. Explore our detailed list of offerings below.
+        </p>
+
+        <div class="service-grid-full stagger-animation">
+          <div class="service-item hidden" style="--stagger-index: 1">
+            <h3 data-lang-key="s1Title">New Vehicle Registration</h3>
+            <p data-lang-key="s1Desc">
+              Start your journey on the right foot. We provide complete
+              assistance with the registration process for your new car or bike,
+              ensuring all documents are correctly filed for a swift and
+              error-free process.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 2">
+            <h3 data-lang-key="s2Title">Transfer of Ownership</h3>
+            <p data-lang-key="s2Desc">
+              Buying or selling a used vehicle? We manage the seamless transfer
+              of vehicle ownership, handling all necessary paperwork and RTO
+              procedures to make the transition official and legally compliant.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 3">
+            <h3 data-lang-key="s3Title">Driving License Services</h3>
+            <p data-lang-key="s3Desc">
+              Whether you're getting your first learner's license, upgrading to
+              a permanent license, or renewing an existing one, we provide
+              expert guidance to make the process straightforward and
+              successful.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 4">
+            <h3 data-lang-key="s4Title">Vehicle Fitness Certificate</h3>
+            <p data-lang-key="s4Desc">
+              Ensure your vehicle is always compliant and road-worthy. We assist
+              in obtaining or renewing your vehicle's fitness certificate,
+              managing the inspection process and documentation on your behalf.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 5">
+            <h3 data-lang-key="s5Title">No Objection Certificate (NOC)</h3>
+            <p data-lang-key="s5Desc">
+              Moving to another state? We help you obtain an NOC for
+              transferring your vehicle, navigating all inter-state formalities
+              so you can re-register your vehicle at your new location with
+              ease.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 6">
+            <h3 data-lang-key="s6Title">Hypothecation Removal</h3>
+            <p data-lang-key="s6Desc">
+              Once you've paid off your vehicle loan, it's crucial to remove the
+              bank's lien from your RC. We offer complete assistance with
+              removing the hypothecation from your RC book after loan closure.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 7">
+            <h3 data-lang-key="s7Title">Duplicate RC/License</h3>
+            <p data-lang-key="s7Desc">
+              Lost or damaged your documents? Don't worry. We help with the
+              official process of obtaining a duplicate Registration Certificate
+              or Driving License in a timely manner.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 8">
+            <h3 data-lang-key="s8Title">Address Change in RC/DL</h3>
+            <p data-lang-key="s8Desc">
+              If you've moved, your documents need to reflect your new address.
+              We provide quick and efficient assistance with updating your
+              address on both your RC book and driving license.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 9">
+            <h3 data-lang-key="s9Title">All RTO Consulting</h3>
+            <p data-lang-key="s9Desc">
+              Have a unique or complex RTO issue? For any other RTO-related
+              work, feel free to contact us. We provide expert advice and custom
+              solutions tailored to your specific needs.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 10">
+            <h3 data-lang-key="s10Title">Vehicle Insurance Services</h3>
+            <p data-lang-key="s10Desc">
+              Stay protected on the road. We assist with new insurance policies
+              and timely renewals, helping you find the best coverage from
+              reputable providers at competitive rates.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 11">
+            <h3 data-lang-key="s11Title">Commercial Vehicle Permits</h3>
+            <p data-lang-key="s11Desc">
+              We handle the application and renewal of various commercial
+              permits, including goods carriers and tourist vehicles, ensuring
+              your business operations remain compliant.
+            </p>
+          </div>
+          <div class="service-item hidden" style="--stagger-index: 12">
+            <h3 data-lang-key="s12Title">Fancy Number Registration</h3>
+            <p data-lang-key="s12Desc">
+              Want a special registration number for your vehicle? We guide you
+              through the process of applying for and acquiring a choice or
+              fancy number through the official RTO channels.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p data-lang-key="copyright">
+          &copy; 2025 Shreenath Auto Advisers. All Rights Reserved.
+        </p>
+        <p data-lang-key="tagline">Your RTO Consultancy Partner</p>
+      </div>
+    </footer>
+
+    <script>
+      const translations = {
+        en: {
+          companyName: "Shreenath Auto Advisers",
+          home: "Home",
+          about: "About Us",
+          services: "Services",
+          contact: "Contact",
+          pageTitle: "Our Comprehensive Services",
+          sectionTitle: "A Solution for Every Need",
+          sectionSubtitle:
+            "At Shreenath Auto Advisers, we offer a complete suite of RTO services designed to cover every possible requirement. Whether you are a new vehicle owner or need to manage documentation for an existing vehicle, our expert team is equipped to handle each task with precision and care. Explore our detailed list of offerings below.",
+          s1Title: "New Vehicle Registration",
+          s1Desc:
+            "Start your journey on the right foot. We provide complete assistance with the registration process for your new car or bike, ensuring all documents are correctly filed for a swift and error-free process.",
+          s2Title: "Transfer of Ownership",
+          s2Desc:
+            "Buying or selling a used vehicle? We manage the seamless transfer of vehicle ownership, handling all necessary paperwork and RTO procedures to make the transition official and legally compliant.",
+          s3Title: "Driving License Services",
+          s3Desc:
+            "Whether you're getting your first learner's license, upgrading to a permanent license, or renewing an existing one, we provide expert guidance to make the process straightforward and successful.",
+          s4Title: "Vehicle Fitness Certificate",
+          s4Desc:
+            "Ensure your vehicle is always compliant and road-worthy. We assist in obtaining or renewing your vehicle's fitness certificate, managing the inspection process and documentation on your behalf.",
+          s5Title: "No Objection Certificate (NOC)",
+          s5Desc:
+            "Moving to another state? We help you obtain an NOC for transferring your vehicle, navigating all inter-state formalities so you can re-register your vehicle at your new location with ease.",
+          s6Title: "Hypothecation Removal",
+          s6Desc:
+            "Once you've paid off your vehicle loan, it's crucial to remove the bank's lien from your RC. We offer complete assistance with removing the hypothecation from your RC book after loan closure.",
+          s7Title: "Duplicate RC/License",
+          s7Desc:
+            "Lost or damaged your documents? Don't worry. We help with the official process of obtaining a duplicate Registration Certificate or Driving License in a timely manner.",
+          s8Title: "Address Change in RC/DL",
+          s8Desc:
+            "If you've moved, your documents need to reflect your new address. We provide quick and efficient assistance with updating your address on both your RC book and driving license.",
+          s9Title: "All RTO Consulting",
+          s9Desc:
+            "Have a unique or complex RTO issue? For any other RTO-related work, feel free to contact us. We provide expert advice and custom solutions tailored to your specific needs.",
+          s10Title: "Vehicle Insurance Services",
+          s10Desc:
+            "Stay protected on the road. We assist with new insurance policies and timely renewals, helping you find the best coverage from reputable providers at competitive rates.",
+          s11Title: "Commercial Vehicle Permits",
+          s11Desc:
+            "We handle the application and renewal of various commercial permits, including goods carriers and tourist vehicles, ensuring your business operations remain compliant.",
+          s12Title: "Fancy Number Registration",
+          s12Desc:
+            "Want a special registration number for your vehicle? We guide you through the process of applying for and acquiring a choice or fancy number through the official RTO channels.",
+          copyright:
+            "&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.",
+          tagline: "Your RTO Consultancy Partner",
+        },
+        gu: {
+          companyName: "શ્રીનાથ ઓટો એડવાઇઝર્સ",
+          home: "હોમ",
+          about: "અમારા વિશે",
+          services: "સેવાઓ",
+          contact: "સંપર્ક",
+          pageTitle: "અમારી વ્યાપક સેવાઓ",
+          sectionTitle: "દરેક જરૂરિયાત માટે એક ઉકેલ",
+          sectionSubtitle:
+            "શ્રીનાથ ઓટો એડવાઇઝર્સ પર, અમે દરેક સંભવિત જરૂરિયાતને આવરી લેવા માટે રચાયેલ RTO સેવાઓનો સંપૂર્ણ સ્યુટ ઓફર કરીએ છીએ. ભલે તમે નવા વાહનના માલિક હોવ અથવા હાલના વાહન માટે દસ્તાવેજોનું સંચાલન કરવાની જરૂર હોય, અમારી નિષ્ણાત ટીમ દરેક કાર્યને ચોકસાઇ અને કાળજી સાથે સંભાળવા માટે સજ્જ છે. નીચે અમારી વિગતવાર ઓફરોનું અન્વેષણ કરો.",
+          s1Title: "નવા વાહનની નોંધણી",
+          s1Desc:
+            "તમારી યાત્રાની યોગ્ય શરૂઆત કરો. અમે તમારી નવી કાર કે બાઇકની નોંધણી પ્રક્રિયામાં સંપૂર્ણ સહાય પૂરી પાડીએ છીએ, ખાતરી કરો કે બધા દસ્તાવેજો ઝડપી અને ભૂલ-મુક્ત પ્રક્રિયા માટે યોગ્ય રીતે ફાઇલ કરવામાં આવ્યા છે.",
+          s2Title: "માલિકીનું સ્થાનાંતરણ",
+          s2Desc:
+            "વપરાયેલ વાહન ખરીદી રહ્યા છો કે વેચી રહ્યા છો? અમે વાહનની માલિકીના સરળ સ્થાનાંતરણનું સંચાલન કરીએ છીએ, સંક્રમણને સત્તાવાર અને કાયદેસર રીતે સુસંગત બનાવવા માટે તમામ જરૂરી કાગળપત્ર અને RTO પ્રક્રિયાઓ સંભાળીએ છીએ.",
+          s3Title: "ડ્રાઇવિંગ લાઇસન્સ સેવાઓ",
+          s3Desc:
+            "ભલે તમે તમારું પહેલું લર્નર લાઇસન્સ મેળવી રહ્યા હોવ, કાયમી લાઇસન્સમાં અપગ્રેડ કરી રહ્યા હોવ, અથવા હાલના લાઇસન્સનું નવીકરણ કરી રહ્યા હોવ, અમે પ્રક્રિયાને સરળ અને સફળ બનાવવા માટે નિષ્ણાત માર્ગદર્શન પૂરું પાડીએ છીએ.",
+          s4Title: "વાહન ફિટનેસ પ્રમાણપત્ર",
+          s4Desc:
+            "ખાતરી કરો કે તમારું વાહન હંમેશા સુસંગત અને રોડ-લાયક છે. અમે તમારા વાહનના ફિટનેસ પ્રમાણપત્ર મેળવવા અથવા નવીકરણ કરવામાં સહાય કરીએ છીએ, તમારા વતી નિરીક્ષણ પ્રક્રિયા અને દસ્તાવેજીકરણનું સંચાલન કરીએ છીએ.",
+          s5Title: "ના-ઓબ્જેક્શન પ્રમાણપત્ર (NOC)",
+          s5Desc:
+            "બીજા રાજ્યમાં જઈ રહ્યા છો? અમે તમને તમારા વાહનને સ્થાનાંતરિત કરવા માટે NOC મેળવવામાં મદદ કરીએ છીએ, બધી આંતર-રાજ્ય ઔપચારિકતાઓને નેવિગેટ કરીએ છીએ જેથી તમે તમારા નવા સ્થાન પર સરળતાથી તમારા વાહનની ફરીથી નોંધણી કરાવી શકો.",
+          s6Title: "હાઇપોથેકેશન દૂર કરવું",
+          s6Desc:
+            "એકવાર તમે તમારી વાહન લોન ચૂકવી દો, પછી તમારી RC માંથી બેંકની લિયન દૂર કરવી મહત્વપૂર્ણ છે. અમે લોન બંધ થયા પછી તમારી RC બુકમાંથી હાઇપોથેકેશન દૂર કરવામાં સંપૂર્ણ સહાય ઓફર કરીએ છીએ.",
+          s7Title: "ડુપ્લિકેટ RC/લાઇસન્સ",
+          s7Desc:
+            "તમારા દસ્તાવેજો ખોવાઈ ગયા છે કે નુકસાન થયું છે? ચિંતા કરશો નહીં. અમે સમયસર ડુપ્લિકેટ નોંધણી પ્રમાણપત્ર અથવા ડ્રાઇવિંગ લાઇસન્સ મેળવવાની સત્તાવાર પ્રક્રિયામાં મદદ કરીએ છીએ.",
+          s8Title: "RC/DL માં સરનામું બદલવું",
+          s8Desc:
+            "જો તમે સ્થળાંતર કર્યું હોય, તો તમારા દસ્તાવેજોએ તમારું નવું સરનામું પ્રતિબિંબિત કરવું જોઈએ. અમે તમારી RC બુક અને ડ્રાઇવિંગ લાઇસન્સ બંને પર તમારું સરનામું અપડેટ કરવામાં ઝડપી અને કાર્યક્ષમ સહાય પૂરી પાડીએ છીએ.",
+          s9Title: "તમામ RTO કન્સલ્ટિંગ",
+          s9Desc:
+            "કોઈ અનન્ય અથવા જટિલ RTO સમસ્યા છે? અન્ય કોઈ RTO-સંબંધિત કાર્ય માટે, અમારો સંપર્ક કરવા માટે નિઃસંકોચ રહો. અમે તમારી વિશિષ્ટ જરૂરિયાતોને અનુરૂપ નિષ્ણાત સલાહ અને કસ્ટમ ઉકેલો પ્રદાન કરીએ છીએ.",
+          s10Title: "વાહન વીમા સેવાઓ",
+          s10Desc:
+            "રસ્તા પર સુરક્ષિત રહો. અમે નવી વીમા પોલિસીઓ અને સમયસર નવીકરણમાં સહાય કરીએ છીએ, તમને પ્રતિષ્ઠિત પ્રદાતાઓ પાસેથી સ્પર્ધાત્મક દરે શ્રેષ્ઠ કવરેજ શોધવામાં મદદ કરીએ છીએ.",
+          s11Title: "વાણિજ્યિક વાહન પરમિટ",
+          s11Desc:
+            "અમે માલવાહક અને પ્રવાસી વાહનો સહિત વિવિધ વાણિજ્યિક પરમિટની અરજી અને નવીકરણનું સંચાલન કરીએ છીએ, ખાતરી કરો કે તમારો વ્યવસાય સંચાલન સુસંગત રહે.",
+          s12Title: "ફેન્સી નંબર નોંધણી",
+          s12Desc:
+            "તમારા વાહન માટે વિશેષ નોંધણી નંબર જોઈએ છે? અમે તમને સત્તાવાર RTO ચેનલો દ્વારા પસંદગી અથવા ફેન્સી નંબર માટે અરજી કરવાની અને મેળવવાની પ્રક્રિયામાં માર્ગદર્શન આપીએ છીએ.",
+          copyright:
+            "&copy; 2025 શ્રીનાથ ઓટો એડવાઇઝર્સ. સર્વાધિકાર સુરક્ષિત.",
+          tagline: "તમારા RTO કન્સલ્ટન્સી પાર્ટનર",
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- ANIMATION FIX ---
+        const pageHeader = document.querySelector(".page-header");
+        if (pageHeader) {
+          pageHeader.classList.add("visible");
+        }
+
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        // Observer now only targets elements within other sections
+        const hiddenElements = document.querySelectorAll(
+          ".content-section .hidden"
+        );
+        hiddenElements.forEach((el) => observer.observe(el));
+        // --- END ANIMATION FIX ---
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        const htmlEl = document.documentElement;
+
+        if (hamburger && navLinks) {
+          hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("nav-active");
+            hamburger.classList.toggle("toggle");
+          });
+
+          document.addEventListener("click", (e) => {
+            if (
+              navLinks.classList.contains("nav-active") &&
+              !navLinks.contains(e.target) &&
+              !hamburger.contains(e.target)
+            ) {
+              navLinks.classList.remove("nav-active");
+              hamburger.classList.remove("toggle");
+            }
+          });
+        }
+
+        const themeToggles = document.querySelectorAll(".theme-toggle");
+        themeToggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            htmlEl.classList.toggle("dark-mode");
+            if (htmlEl.classList.contains("dark-mode")) {
+              localStorage.setItem("theme", "dark");
+            } else {
+              localStorage.setItem("theme", "light");
+            }
+          });
+        });
+
+        const setLanguage = (language) => {
+          document.body.classList.add("is-translating");
+          setTimeout(() => {
+            document
+              .querySelectorAll("[data-lang-key]")
+              .forEach((element) => {
+                const key = element.getAttribute("data-lang-key");
+                if (translations[language] && translations[language][key]) {
+                  element.innerHTML = translations[language][key];
+                }
+              });
+            htmlEl.lang = language;
+            localStorage.setItem("language", language);
+
+            if (language === "gu") {
+              document.body.classList.add("gujarati-font");
+            } else {
+              document.body.classList.remove("gujarati-font");
+            }
+            document.body.classList.remove("is-translating");
+          }, 300);
+        };
+
+        const toggleLanguage = () => {
+          const currentLang = localStorage.getItem("language") || "en";
+          const newLang = currentLang === "en" ? "gu" : "en";
+          setLanguage(newLang);
+        };
+
+        document.querySelectorAll(".translate-button").forEach((button) => {
+          button.addEventListener("click", toggleLanguage);
+        });
+
+        const savedLanguage = localStorage.getItem("language");
+        if (savedLanguage) {
+          setLanguage(savedLanguage);
+        } else {
+          setLanguage("en"); // Default to English
+        }
+      });
+    </script>
+  </body>
+</html>
