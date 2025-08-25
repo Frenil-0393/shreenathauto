@@ -6,10 +6,11 @@
     <title>Shreenath Auto Advisers - Premier RTO Consultancy</title>
     <style>
       /* --- FONT IMPORT --- */
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&family=Baloo+Bhai+2:wght@400;500;700&family=Noto+Serif+Gujarati:wght@700&display=swap");
 
-      /* --- ROOT VARIABLES: GRANDEUR PALETTE & KINETIC SYSTEM --- */
+      /* --- ROOT VARIABLES --- */
       :root {
+        /* Light Mode Palette */
         --primary-color: #1a1a1a;
         --accent-color-gold: #c5a880;
         --accent-color-dark-green: #3b4d48;
@@ -20,14 +21,38 @@
         --text-color: #555555;
         --text-light-color: #f0f0f0;
         --border-color: #ebebeb;
+        --shadow-subtle-color: rgba(0, 0, 0, 0.05);
+        --shadow-lifted-color: rgba(0, 0, 0, 0.08);
+        --hero-overlay-color: rgba(0, 0, 0, 0.6);
+        --textured-overlay-color: rgba(10, 20, 20, 0.85);
+
+        /* Universal Variables */
         --font-heading: "Playfair Display", serif;
         --font-body: "Inter", sans-serif;
+        --font-gujarati: "Baloo Bhai 2", sans-serif;
+        --font-gujarati-display: "Noto Serif Gujarati", serif;
         --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         --border-radius: 8px;
         --border-radius-capsule: 50px;
-        --shadow-subtle: 0 5px 25px rgba(0, 0, 0, 0.05);
-        --shadow-lifted: 0 12px 35px rgba(0, 0, 0, 0.08);
+        --shadow-subtle: 0 5px 25px var(--shadow-subtle-color);
+        --shadow-lifted: 0 12px 35px var(--shadow-lifted-color);
         --glow-shadow: 0 0 40px rgba(197, 168, 128, 0.2);
+      }
+
+      /* --- DARK MODE PALETTE --- */
+      html.dark-mode {
+        --primary-color: #f0f0f0;
+        --dark-color: #ffffff;
+        --white-color: #1a1a1a;
+        --text-color: #a0a0a0;
+        --border-color: #333333;
+        --shadow-subtle-color: rgba(0, 0, 0, 0.2);
+        --shadow-lifted-color: rgba(0, 0, 0, 0.3);
+        --hero-overlay-color: rgba(0, 0, 0, 0.7);
+        --textured-overlay-color: rgba(0, 0, 0, 0.75);
+      }
+      html.dark-mode .bg-textured-dark .feature-item h3 {
+        color: var(--accent-color-gold);
       }
 
       /* --- KEYFRAME ANIMATIONS --- */
@@ -69,6 +94,24 @@
           transform: translateY(0);
         }
       }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
       /* --- BASE STYLES --- */
       body {
@@ -81,6 +124,7 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
+        transition: background-color 0.4s ease, color 0.4s ease;
       }
       .container {
         width: 90%;
@@ -104,8 +148,9 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(10, 20, 20, 0.75);
+        background-color: var(--textured-overlay-color);
         z-index: 1;
+        transition: background-color 0.4s ease;
       }
       .bg-textured-dark .container {
         position: relative;
@@ -118,20 +163,18 @@
         color: var(--text-light-color);
         opacity: 0.9;
       }
-      .bg-textured-dark .team-member h4 {
-        color: var(--dark-color);
-      } /* Keep names dark on the white card */
 
       /* --- HEADER & NAVIGATION --- */
       header {
         background: var(--white-color);
-        padding: 15px 0; /* Reduced padding for a tighter look */
+        padding: 15px 0;
         border-bottom: 1px solid var(--border-color);
         position: sticky;
         top: 0;
         width: 100%;
         z-index: 1000;
         box-shadow: var(--shadow-subtle);
+        transition: background-color 0.4s ease, border-color 0.4s ease;
       }
       header .container {
         display: flex;
@@ -148,18 +191,23 @@
         font-family: var(--font-heading);
       }
       .logo img {
-        max-height: 45px; /* Slightly smaller logo on mobile */
+        max-height: 45px;
         width: auto;
         margin-right: 10px;
-        filter: none;
+      }
+      html.dark-mode .logo img {
+        filter: brightness(0) invert(1);
       }
       .logo span {
-        font-size: 16px; /* Font size for mobile */
-        display: inline-block; /* Make it visible on mobile */
+        font-size: 16px;
+        display: inline-block;
         line-height: 1.2;
       }
-
-      /* Redesigned Mobile Navigation */
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
       .nav-links {
         position: fixed;
         top: 0;
@@ -167,7 +215,7 @@
         height: 100vh;
         width: 80%;
         max-width: 320px;
-        background-color: var(--accent-color-dark-green2);
+        background-color: #24302c;
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -183,7 +231,13 @@
       }
       .nav-links li {
         margin: 20px 0;
-        opacity: 0; /* Initially hidden for animation */
+        opacity: 0;
+      }
+      .nav-links {
+        margin-top: 0px;
+      }
+      .nav-toggle-item {
+        margin-top: 0px;
       }
       .nav-links.nav-active li {
         animation: navLinkFade 0.5s ease forwards;
@@ -200,7 +254,9 @@
       .nav-links.nav-active li:nth-child(4) {
         animation-delay: 0.5s;
       }
-
+      .nav-links.nav-active li:nth-child(5) {
+        animation-delay: 0.6s;
+      }
       .nav-links a {
         color: var(--text-light-color);
         text-decoration: none;
@@ -214,7 +270,6 @@
       .nav-links a.active {
         color: var(--accent-color-gold);
       }
-
       .hamburger {
         display: block;
         cursor: pointer;
@@ -237,11 +292,64 @@
       .hamburger.toggle .line3 {
         transform: rotate(45deg) translate(-5px, -6px);
       }
-
+      .hamburger.toggle span {
+        background: var(--text-light-color);
+      }
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .theme-toggle,
+      .translate-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--dark-color);
+      }
+      .translate-button img {
+        width: 28px;
+        height: 28px;
+      }
+      .translate-icon-dark {
+        display: none;
+      }
+      html.dark-mode .translate-icon-light {
+        display: none;
+      }
+      html.dark-mode .translate-icon-dark {
+        display: block;
+      }
+      .nav-links .theme-toggle {
+        color: var(--text-light-color);
+      }
+      .theme-toggle .sun-icon,
+      .theme-toggle .moon-icon {
+        width: 24px;
+        height: 24px;
+      }
+      .moon-icon {
+        display: none;
+      }
+      .sun-icon {
+        display: block;
+      }
+      html.dark-mode .moon-icon {
+        display: block;
+      }
+      html.dark-mode .sun-icon {
+        display: none;
+      }
+      .translate-mobile {
+        display: none;
+      }
       /* --- HERO SECTION --- */
       #hero {
         min-height: 80vh;
-        color: var(--white-color);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -252,7 +360,7 @@
         background-position: center;
         position: relative;
         overflow: hidden;
-        margin-top: -76px; /* Adjust for new sticky header height */
+        margin-top: -76px;
       }
       #hero::before {
         content: "";
@@ -261,25 +369,27 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.6);
+        background: var(--hero-overlay-color);
         z-index: 1;
+        transition: background-color 0.4s ease;
       }
-      #hero .hero-content {
+      .hero-content {
         position: relative;
         z-index: 2;
+        color: var(--text-light-color);
       }
-      #hero h2,
-      #hero p,
-      #hero .btn {
-        opacity: 0;
+      .hero-content h2,
+      .hero-content p,
+      .hero-content .btn {
+        opacity: 0; /* Start hidden for animation */
       }
-      #hero .hero-content.visible h2 {
+      .hero-content.visible h2 {
         animation: slideInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards 0.3s;
       }
-      #hero .hero-content.visible p {
+      .hero-content.visible p {
         animation: slideInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards 0.5s;
       }
-      #hero .hero-content.visible .btn {
+      .hero-content.visible .btn {
         animation: slideInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards 0.7s;
       }
       #hero h2 {
@@ -305,7 +415,7 @@
         justify-content: center;
         gap: 0.75rem;
         background-color: var(--accent-color-gold);
-        color: var(--white-color);
+        color: var(--primary-color);
         padding: 16px 40px;
         border-radius: var(--border-radius-capsule);
         text-decoration: none;
@@ -315,6 +425,9 @@
         border: 2px solid var(--accent-color-gold);
         transition: var(--transition-smooth);
         box-shadow: 0 5px 20px rgba(197, 168, 128, 0.3);
+      }
+      html.dark-mode .btn {
+        color: var(--dark-color);
       }
       .btn:hover {
         background-color: transparent;
@@ -330,7 +443,7 @@
       }
       .button-container {
         text-align: center;
-        margin-top: 6.5rem;
+        margin-top: 6.5rem; /* Increased space */
       }
 
       /* --- CONTENT & SECTIONS --- */
@@ -381,7 +494,7 @@
         background-image: url("background-texture.jpg");
         background-size: cover;
         background-position: center;
-        overflow: hidden; /* Important for pseudo-elements */
+        overflow: hidden;
         transition: transform 0.4s ease, box-shadow 0.4s ease;
       }
       .brand-quote .slogan-box:hover {
@@ -389,7 +502,6 @@
         box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15), var(--glow-shadow);
       }
       .brand-quote .slogan-box::before {
-        /* BG Overlay */
         content: "";
         position: absolute;
         top: 0;
@@ -400,39 +512,39 @@
         z-index: 1;
       }
       .brand-quote p {
-        position: relative; /* To appear above overlay */
+        position: relative;
         z-index: 2;
         font-family: var(--font-heading);
-        font-size: clamp(2.2rem, 6.5vw, 3.5rem); /* Increased Font Size */
+        font-size: clamp(2.2rem, 6.5vw, 3.5rem);
         color: var(--accent-color-gold);
         line-height: 1.4;
         margin: 0 auto;
         max-width: 800px;
         text-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
       }
-
-      /* Animated Border for Slogan Box */
+      .brand-quote .slogan-box .top,
+      .brand-quote .slogan-box .bottom,
+      .brand-quote .slogan-box .left,
+      .brand-quote .slogan-box .right {
+        background-color: var(--accent-color-gold);
+        position: absolute;
+        z-index: 3;
+      }
       .brand-quote .slogan-box .top,
       .brand-quote .slogan-box .bottom {
-        position: absolute;
         left: 50%;
         transform: translateX(-50%);
         width: 0;
         height: 2px;
-        background-color: var(--accent-color-gold);
         transition: width 0.4s ease 0.2s;
-        z-index: 3;
       }
       .brand-quote .slogan-box .left,
       .brand-quote .slogan-box .right {
-        position: absolute;
         top: 50%;
         transform: translateY(-50%);
         width: 2px;
         height: 0;
-        background-color: var(--accent-color-gold);
         transition: height 0.4s ease;
-        z-index: 3;
       }
       .brand-quote .slogan-box .top {
         top: 15px;
@@ -446,7 +558,6 @@
       .brand-quote .slogan-box .right {
         right: 15px;
       }
-
       .brand-quote .slogan-box:hover .top,
       .brand-quote .slogan-box:hover .bottom {
         width: calc(100% - 30px);
@@ -459,15 +570,20 @@
       /* --- GRIDS & CARDS --- */
       .feature-grid,
       .service-grid,
-      .team-grid,
       .branch-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 120px 60px;
+        gap: 100px 30px;
+      }
+      .team-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 100px 30px;
+        justify-content: center;
       }
       .service-item,
       .feature-item,
-      .branch-item {
+      .team-member {
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -481,7 +597,7 @@
       }
       .service-item:hover,
       .feature-item:hover,
-      .branch-item:hover {
+      .team-member:hover {
         transform: translateY(-12px);
         box-shadow: var(--shadow-lifted), var(--glow-shadow);
       }
@@ -491,36 +607,20 @@
         font-size: 1.6rem;
         margin: 0 0 15px 0;
       }
+      html.dark-mode .service-item h3 {
+        color: var(--accent-color-gold);
+      }
       .feature-item h3,
-      .branch-item h3 {
+      .team-member h4 {
         font-family: var(--font-heading);
         color: var(--dark-color);
         font-size: 1.6rem;
         margin: 0 0 15px 0;
       }
       .service-item p,
-      .feature-item p,
-      .branch-item p {
+      .feature-item p {
         margin: 0;
         flex-grow: 1;
-      }
-
-      /* --- NEW TEAM MEMBER CARD STYLING --- */
-      .team-member {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        background: var(--white-color);
-        padding: 40px;
-        border: 1px solid var(--border-color);
-        text-align: center;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow-subtle);
-        transition: var(--transition-smooth);
-      }
-      .team-member:hover {
-        transform: translateY(-12px);
-        box-shadow: var(--shadow-lifted), var(--glow-shadow);
       }
       .team-photo-wrapper {
         position: relative;
@@ -555,10 +655,7 @@
         box-shadow: var(--shadow-lifted);
       }
       .team-member h4 {
-        font-family: var(--font-heading);
-        font-size: 1.5rem;
-        margin: 0 0 5px 0;
-        color: var(--dark-color);
+        margin-bottom: 5px;
       }
       .team-member p {
         color: var(--accent-color-dark-green);
@@ -567,27 +664,99 @@
         font-size: 0.9rem;
         letter-spacing: 1px;
       }
+      html.dark-mode .team-member p {
+        color: var(--accent-color-gold);
+        opacity: 0.8;
+      }
 
-      .branch-item a {
-        color: inherit;
+      /* --- NEW BRANCH CARD STYLES --- */
+      .branch-item {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background: var(--white-color);
+        padding: 40px;
+        border: 1px solid var(--border-color);
+        text-align: left;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-subtle);
+        transition: var(--transition-smooth);
+      }
+      .branch-item:hover {
+        transform: translateY(-12px);
+        box-shadow: var(--shadow-lifted), var(--glow-shadow);
+      }
+      .branch-item h3 {
+        font-family: var(--font-heading);
+        color: var(--dark-color);
+        font-size: 1.8rem;
+        margin: 0 0 25px 0;
+        text-align: center;
+      }
+      .contact-detail-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .contact-detail-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      .contact-detail-item .icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        margin-top: 4px;
+        color: var(--accent-color-dark-green);
+        fill: currentColor;
+      }
+      html.dark-mode .contact-detail-item .icon {
+        color: var(--accent-color-gold);
+      }
+      .contact-detail-item .detail-text span {
+        font-weight: 700;
+        color: var(--dark-color);
+        display: block;
+        margin-bottom: 2px;
+      }
+      .contact-detail-item a {
+        color: var(--accent-color-secondary);
         text-decoration: none;
+        font-weight: 500;
         transition: color 0.3s ease;
       }
-      .branch-item a:hover {
+      html.dark-mode .contact-detail-item a {
         color: var(--accent-color-gold);
+      }
+      .contact-detail-item a:hover {
         text-decoration: underline;
       }
+      .phone-numbers {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      /* --- FOOTER --- */
       footer {
         background: var(--primary-color);
         color: #a0a0a0;
         text-align: center;
         padding: 60px 20px;
+        transition: background-color 0.4s ease;
+      }
+      html.dark-mode footer {
+        background-color: #111;
       }
       footer p {
         margin: 5px 0;
       }
 
-      /* --- SMOOTHER SCROLL ANIMATIONS --- */
+      /* --- ANIMATIONS --- */
       .hidden {
         opacity: 0;
         transform: translateY(50px);
@@ -598,34 +767,171 @@
         opacity: 1;
         transform: translateY(0);
       }
-      .stagger-animation .hidden:nth-child(2) {
-        transition-delay: 0.15s;
+      .stagger-animation .hidden {
+        transition-delay: calc(0.15s * var(--stagger-index));
       }
-      .stagger-animation .hidden:nth-child(3) {
-        transition-delay: 0.3s;
+      [data-lang-key] {
+        transition: opacity 0.3s ease-in-out;
       }
-      .stagger-animation .hidden:nth-child(4) {
-        transition-delay: 0.45s;
+      body.is-translating [data-lang-key] {
+        opacity: 0;
+      }
+
+      /* --- PREMIUM LANGUAGE MODAL --- */
+      .language-modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+      .language-modal.active {
+        display: flex;
+      }
+      .language-modal-content {
+        background-image: url("background-texture.jpg");
+        background-size: cover;
+        background-position: center;
+        color: var(--text-light-color);
+        padding: 40px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 420px;
+        border: 1px solid var(--accent-color-gold);
+        position: relative;
+        overflow: hidden;
+        animation: scaleIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      }
+      .language-modal-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--textured-overlay-color);
+        z-index: 1;
+      }
+      .language-modal-content > * {
+        position: relative;
+        z-index: 2;
+      }
+      html.dark-mode .language-modal-content {
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+      }
+      .modal-logo {
+        max-width: 60px;
+        margin: 0 auto 20px auto;
+        opacity: 0.9;
+      }
+      .modal-logo img {
+        width: 100%;
+      }
+      html.dark-mode .modal-logo img {
+        filter: brightness(0) invert(1);
+      }
+      .language-modal-content h3 {
+        font-family: var(--font-heading);
+        color: var(--accent-color-gold);
+        margin: 0 0 30px 0;
+        font-size: 1.6rem;
+        line-height: 1.4;
+      }
+      .language-options {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      .language-options button {
+        flex: 1;
+        background-color: transparent;
+        color: var(--text-light-color);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        padding: 14px 20px;
+        border-radius: var(--border-radius-capsule);
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+      }
+      .language-options button:hover {
+        border-color: var(--accent-color-gold);
+        background-color: var(--accent-color-gold);
+        color: var(--primary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(197, 168, 128, 0.4);
+      }
+
+      /* --- GUJARATI LANGUAGE STYLES --- */
+      body.gujarati-font {
+        font-family: var(--font-gujarati);
+        line-height: 1.9;
+      }
+      body.gujarati-font h1,
+      body.gujarati-font h2,
+      body.gujarati-font h3,
+      body.gujarati-font h4,
+      body.gujarati-font .btn {
+        font-family: var(--font-gujarati);
+      }
+      body.gujarati-font .logo span {
+        font-family: var(--font-gujarati);
+      }
+      body.gujarati-font .nav-links a {
+        font-size: 16px;
+      }
+      body.gujarati-font .nav-links li a {
+        font-size: 20px;
+      }
+      body.gujarati-font .section-title {
+        font-weight: 600;
+      }
+      body.gujarati-font .btn {
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+      body.gujarati-font .btn .icon {
+        display: none;
+      }
+      body.gujarati-font [data-lang-key="heroTitle"],
+      body.gujarati-font [data-lang-key="slogan"] {
+        font-family: var(--font-gujarati-display);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      body.gujarati-font .language-options button {
+        font-family: var(--font-gujarati);
       }
 
       /* --- RESPONSIVE STYLES --- */
-      @media (max-width: 480px) {
-        /* Styles for small smartphones */
+      @media (max-width: 767px) {
         body {
-          font-size: 14px; /* Smaller base font */
+          font-size: 14px;
           line-height: 1.7;
         }
         #hero h2 {
-          font-size: clamp(1.7rem, 10vw, 2.4rem); /* Smaller hero title */
+          font-size: clamp(1.7rem, 10vw, 2.4rem);
         }
         #hero p {
-          font-size: clamp(0.9rem, 4vw, 1.05rem); /* Smaller hero subtitle */
+          font-size: clamp(0.9rem, 4vw, 1.05rem);
         }
         .section-title {
-          font-size: clamp(1.6rem, 8vw, 2.4rem); /* Smaller section titles */
+          font-size: clamp(1.6rem, 8vw, 2.4rem);
         }
         .section-subtitle {
-          font-size: 0.95rem; /* Smaller subtitles */
+          font-size: 0.95rem;
           margin-bottom: 60px;
         }
         .brand-quote {
@@ -635,20 +941,16 @@
           padding: 60px 25px;
         }
         .brand-quote p {
-          font-size: clamp(
-            1.8rem,
-            7vw,
-            2.2rem
-          ); /* Increased Mobile Font Size */
+          font-size: clamp(1.8rem, 7vw, 2.2rem);
         }
         .content-section {
-          padding: 90px 0; /* Tighter vertical padding */
+          padding: 90px 0;
         }
         .service-item,
         .feature-item,
         .team-member,
         .branch-item {
-          padding: 25px; /* Tighter card padding */
+          padding: 25px;
         }
         .service-item h3,
         .feature-item h3,
@@ -665,6 +967,20 @@
           padding: 12px 28px;
           font-size: 0.85rem;
         }
+        .translate-desktop {
+          display: none;
+        }
+        .translate-mobile {
+          display: flex;
+        }
+        body.gujarati-font {
+          font-size: 15.5px;
+        }
+        body.gujarati-font .btn {
+          font-size: 1rem;
+          padding-top: 14px;
+          padding-bottom: 14px;
+        }
       }
 
       @media (min-width: 768px) {
@@ -679,6 +995,13 @@
         .hamburger {
           display: none;
         }
+        .nav-toggle-item {
+          display: list-item;
+          margin: 0;
+        }
+        .nav-controls {
+          gap: 0;
+        }
         .nav-links {
           position: static;
           flex-direction: row;
@@ -687,12 +1010,14 @@
           background: none;
           box-shadow: none;
           transition: none;
+          align-items: center;
         }
-        /* Desktop Nav Link Animation */
         .nav-links li {
           margin: 0 20px;
           opacity: 0;
           animation: navItemAnimation 0.6s ease forwards;
+          display: flex;
+          align-items: center;
         }
         .nav-links li:nth-child(1) {
           animation-delay: 0.2s;
@@ -706,11 +1031,28 @@
         .nav-links li:nth-child(4) {
           animation-delay: 0.5s;
         }
+        .nav-links li:nth-child(5) {
+          animation-delay: 0.6s;
+        }
+        .nav-links li:nth-child(6) {
+          animation-delay: 0.7s;
+        }
         .nav-links a {
           font-size: 14px;
           white-space: nowrap;
           position: relative;
           color: var(--dark-color);
+        }
+        .nav-links .theme-toggle {
+          color: var(--dark-color);
+        }
+        html.dark-mode .nav-links a,
+        html.dark-mode .nav-links .theme-toggle {
+          color: var(--text-color);
+        }
+        html.dark-mode .nav-links a:hover,
+        html.dark-mode .nav-links a.active {
+          color: var(--accent-color-gold);
         }
         .nav-links a::after {
           content: "";
@@ -728,32 +1070,17 @@
           width: 100%;
         }
         .feature-grid,
-        .team-grid,
         .service-grid {
           grid-template-columns: repeat(3, 1fr);
+        }
+        .team-grid {
+          grid-template-columns: repeat(4, 1fr);
         }
         .branch-grid {
           grid-template-columns: repeat(2, 1fr);
         }
-        /* Restore original font sizes for larger screens */
-        .section-title {
-          font-size: clamp(2.5rem, 8vw, 3.2rem);
-        }
-        .section-subtitle {
-          font-size: 1.2rem;
-        }
-        .brand-quote p {
-          font-size: clamp(2.2rem, 6.5vw, 3.5rem);
-        }
-        .service-item h3,
-        .feature-item h3,
-        .branch-item h3 {
-          font-size: 1.8rem;
-        }
-        .team-member h4 {
-          font-size: 1.6rem;
-        }
       }
+
       @media (min-width: 1024px) {
         .logo img {
           max-height: 55px;
@@ -763,6 +1090,17 @@
         }
       }
     </style>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (theme === "dark" || (!theme && prefersDark)) {
+          document.documentElement.classList.add("dark-mode");
+        }
+      })();
+    </script>
   </head>
   <body>
     <header>
@@ -770,35 +1108,114 @@
         <div class="logo">
           <a href="index.html">
             <img src="logo.png" alt="Shreenath Auto Advisers Logo" />
-            <span>Shreenath Auto Advisers</span>
+            <span data-lang-key="companyName">Shreenath Auto Advisers</span>
           </a>
         </div>
         <nav>
           <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li>
+              <a href="index.html" class="active" data-lang-key="home">Home</a>
+            </li>
+            <li><a href="about.html" data-lang-key="about">About Us</a></li>
+            <li>
+              <a href="services.html" data-lang-key="services">Services</a>
+            </li>
+            <li>
+              <a href="contact.html" data-lang-key="contact">Contact</a>
+            </li>
+            <li class="nav-toggle-item">
+              <button class="theme-toggle" title="Toggle theme">
+                <svg
+                  class="sun-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg
+                  class="moon-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                  ></path>
+                </svg>
+              </button>
+            </li>
+            <li class="translate-desktop">
+              <button class="translate-button" title="Toggle Language">
+                <img
+                  class="translate-icon-light"
+                  src="language_icon_dark.png"
+                  alt="Translate Icon"
+                />
+                <img
+                  class="translate-icon-dark"
+                  src="language_icon_light.png"
+                  alt="Translate Icon"
+                />
+              </button>
+            </li>
           </ul>
-          <div class="hamburger">
-            <span class="line1"></span> <span class="line2"></span>
-            <span class="line3"></span>
+          <div class="nav-controls">
+            <button
+              class="translate-button translate-mobile"
+              title="Toggle Language"
+            >
+              <img
+                class="translate-icon-light"
+                src="language_icon_dark.png"
+                alt="Translate Icon"
+              />
+              <img
+                class="translate-icon-dark"
+                src="language_icon_light.png"
+                alt="Translate Icon"
+              />
+            </button>
+            <div class="hamburger">
+              <span class="line1"></span> <span class="line2"></span>
+              <span class="line3"></span>
+            </div>
           </div>
         </nav>
       </div>
     </header>
 
     <section id="hero">
-      <div class="hero-content hidden">
-        <h2>Simplifying RTO, Empowering You</h2>
-        <p>
+      <div class="hero-content">
+        <h2 data-lang-key="heroTitle">Simplifying RTO, Empowering You</h2>
+        <p data-lang-key="heroSubtitle">
           Navigating the complexities of RTO paperwork can be overwhelming. At
           Shreenath Auto Advisers, we provide reliable, efficient, and
           hassle-free consultancy services to simplify all your vehicle
           documentation needs.
         </p>
         <a href="services.html" class="btn">
-          <span>Explore Services</span>
+          <span data-lang-key="heroButton">Explore Services</span>
           <span class="icon">&rarr;</span>
         </a>
       </div>
@@ -806,8 +1223,10 @@
 
     <section class="content-section">
       <div class="container hidden">
-        <h2 class="section-title">Welcome to Shreenath Auto Advisers</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title" data-lang-key="welcomeTitle">
+          Welcome to Shreenath Auto Advisers
+        </h2>
+        <p class="section-subtitle" data-lang-key="welcomeSubtitle">
           We are your one-stop solution for all Regional Transport Office (RTO)
           related services. From new vehicle registrations to complex ownership
           transfers, we handle it all with precision and care. All RTO work can
@@ -820,32 +1239,32 @@
 
     <section class="content-section bg-textured-dark">
       <div class="container hidden">
-        <h2 class="section-title">Why Choose Us?</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title" data-lang-key="whyUsTitle">Why Choose Us?</h2>
+        <p class="section-subtitle" data-lang-key="whyUsSubtitle">
           We are more than consultants; we are dedicated partners committed to
           excellence in every aspect of the RTO process.
         </p>
         <div class="feature-grid stagger-animation">
-          <div class="feature-item hidden">
-            <h3>Decades of Experience</h3>
-            <p>
+          <div class="feature-item hidden" style="--stagger-index: 1">
+            <h3 data-lang-key="feature1Title">Decades of Experience</h3>
+            <p data-lang-key="feature1Desc">
               Our team leverages deep institutional knowledge of RTO regulations
               to navigate complexities with unmatched efficiency, ensuring your
               work is done right the first time.
             </p>
           </div>
-          <div class="feature-item hidden">
-            <h3>Absolute Transparency</h3>
-            <p>
+          <div class="feature-item hidden" style="--stagger-index: 2">
+            <h3 data-lang-key="feature2Title">Absolute Transparency</h3>
+            <p data-lang-key="feature2Desc">
               We believe in complete transparency. There are no hidden fees or
               surprise charges. We provide a clear breakdown of costs and
               processes from the very beginning so you know exactly what to
               expect.
             </p>
           </div>
-          <div class="feature-item hidden">
-            <h3>Client-Centric Service</h3>
-            <p>
+          <div class="feature-item hidden" style="--stagger-index: 3">
+            <h3 data-lang-key="feature3Title">Client-Centric Service</h3>
+            <p data-lang-key="feature3Desc">
               Your satisfaction is our top priority. We listen to your needs,
               provide clear communication throughout the process, and ensure you
               are always informed and confident in our services.
@@ -860,37 +1279,41 @@
         <div class="slogan-box">
           <span class="top"></span><span class="bottom"></span>
           <span class="left"></span><span class="right"></span>
-          <p>"Clarity in Process, Confidence in Outcome."</p>
+          <p data-lang-key="slogan">
+            "Clarity in Process, Confidence in Outcome."
+          </p>
         </div>
       </div>
     </section>
 
     <section class="content-section">
       <div class="container hidden">
-        <h2 class="section-title">Our Core Services</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title" data-lang-key="coreServicesTitle">
+          Our Core Services
+        </h2>
+        <p class="section-subtitle" data-lang-key="coreServicesSubtitle">
           Discover our curated selection of services, designed to address the
           most critical RTO needs with professional care and attention to
           detail.
         </p>
         <div class="service-grid stagger-animation">
-          <div class="service-item hidden">
-            <h3>New Vehicle Registration</h3>
-            <p>
+          <div class="service-item hidden" style="--stagger-index: 1">
+            <h3 data-lang-key="service1Title">New Vehicle Registration</h3>
+            <p data-lang-key="service1Desc">
               Flawless execution of the registration process for your new
               premium car or motorcycle.
             </p>
           </div>
-          <div class="service-item hidden">
-            <h3>Transfer of Ownership</h3>
-            <p>
+          <div class="service-item hidden" style="--stagger-index: 2">
+            <h3 data-lang-key="service2Title">Transfer of Ownership</h3>
+            <p data-lang-key="service2Desc">
               Effortless and secure transfer of vehicle ownership, including all
               legal and procedural formalities.
             </p>
           </div>
-          <div class="service-item hidden">
-            <h3>Driving License Concierge</h3>
-            <p>
+          <div class="service-item hidden" style="--stagger-index: 3">
+            <h3 data-lang-key="service3Title">Driving License Concierge</h3>
+            <p data-lang-key="service3Desc">
               Personalized guidance for obtaining a new license or renewing your
               existing credentials.
             </p>
@@ -898,7 +1321,7 @@
         </div>
         <div class="button-container hidden">
           <a href="services.html" class="btn">
-            <span>View All Services</span>
+            <span data-lang-key="allServicesButton">View All Services</span>
             <span class="icon">&rarr;</span>
           </a>
         </div>
@@ -907,32 +1330,41 @@
 
     <section class="content-section">
       <div class="container hidden">
-        <h2 class="section-title">Meet Our Experts</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title" data-lang-key="teamTitle">
+          Meet Our Experts
+        </h2>
+        <p class="section-subtitle" data-lang-key="teamSubtitle">
           Our distinction lies in our team. Meet the seasoned professionals
           dedicated to delivering prompt, transparent, and superior service.
         </p>
         <div class="team-grid stagger-animation">
-          <div class="team-member hidden">
+          <div class="team-member hidden" style="--stagger-index: 1">
             <div class="team-photo-wrapper">
               <img src="chetan.jpg" alt="Chetan Patel" />
             </div>
             <h4>Chetan Patel</h4>
-            <p>Founder & RTO Adviser</p>
+            <p data-lang-key="t1Role">Founder & RTO Adviser</p>
           </div>
-          <div class="team-member hidden">
+          <div class="team-member hidden" style="--stagger-index: 2">
             <div class="team-photo-wrapper">
               <img src="jasmin.jpg" alt="Jasmin Patel" />
             </div>
             <h4>Jasmin Patel</h4>
-            <p>Technical Specialist</p>
+            <p data-lang-key="t2Role">Technical Specialist</p>
           </div>
-          <div class="team-member hidden">
+          <div class="team-member hidden" style="--stagger-index: 3">
             <div class="team-photo-wrapper">
               <img src="divyesh.jpg" alt="Divyesh Patel" />
             </div>
             <h4>Divyesh Patel</h4>
-            <p>Branch Manager, Dhoraji</p>
+            <p data-lang-key="t3Role">Branch Manager, Dhoraji</p>
+          </div>
+          <div class="team-member hidden" style="--stagger-index: 4">
+            <div class="team-photo-wrapper">
+              <img src="frenil.jpg" alt="Frenil Patel" />
+            </div>
+            <h4>Frenil Patel</h4>
+            <p data-lang-key="t4Role">Designer and developer of Website</p>
           </div>
         </div>
       </div>
@@ -940,26 +1372,96 @@
 
     <section class="content-section">
       <div class="container hidden">
-        <h2 class="section-title">Our Locations</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title" data-lang-key="locationsTitle">
+          Our Locations
+        </h2>
+        <p class="section-subtitle" data-lang-key="locationsSubtitle">
           With two strategically located branches, we are positioned to serve
           you better. We invite you to visit for a personal consultation.
         </p>
         <div class="branch-grid stagger-animation">
-          <div class="branch-item hidden">
-            <h3>Jamkandorana</h3>
-            <p>
-              Near Bharat ges agency, 1st Floor, Kalavad Road, Jamkandorana,
-              Rajkot, Gujarat-360405
-            </p>
-            <p>Phone: <a href="tel:9824566262">9824566262</a></p>
-            <p>Phone: <a href="tel:9925466261">9925466261</a></p>
+          <!-- Jamkandorana Branch Card -->
+          <div class="branch-item hidden" style="--stagger-index: 1">
+            <h3 data-lang-key="branch1Name">Jamkandorana Branch</h3>
+            <ul class="contact-detail-list">
+              <li class="contact-detail-item">
+                <svg
+                  class="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  ></path>
+                </svg>
+                <div class="detail-text">
+                  <span data-lang-key="addressLabel">Address</span>
+                  <div data-lang-key="branch1Address">
+                    Near Bharat ges agency, 1st Floor, Kalavad Road,
+                    Jamkandorana, Rajkot, Gujarat-360405
+                  </div>
+                </div>
+              </li>
+              <li class="contact-detail-item">
+                <svg
+                  class="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                  ></path>
+                </svg>
+                <div class="detail-text">
+                  <span data-lang-key="phoneLabel">Phone</span>
+                  <div class="phone-numbers">
+                    <a href="tel:9824566262">9824566262</a>
+                    <a href="tel:9925466261">9925466261</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
-          <div class="branch-item hidden">
-            <h3>Dhoraji</h3>
-            <p>Near Naqsh pan, Jetpur raod, Dhoraji, Rajkot, Gujarat-360410</p>
-            <p>Phone: <a href="tel:9099561439">9099561439</a></p>
-            <p>Phone: <a href="tel:9925466261">9925466261</a></p>
+          <!-- Dhoraji Branch Card -->
+          <div class="branch-item hidden" style="--stagger-index: 2">
+            <h3 data-lang-key="branch2Name">Dhoraji Branch</h3>
+            <ul class="contact-detail-list">
+              <li class="contact-detail-item">
+                <svg
+                  class="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  ></path>
+                </svg>
+                <div class="detail-text">
+                  <span data-lang-key="addressLabel">Address</span>
+                  <div data-lang-key="branch2Address">
+                    Near Naqsh pan, Jetpur raod, Dhoraji, Rajkot, Gujarat-360410
+                  </div>
+                </div>
+              </li>
+              <li class="contact-detail-item">
+                <svg
+                  class="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                  ></path>
+                </svg>
+                <div class="detail-text">
+                  <span data-lang-key="phoneLabel">Phone</span>
+                  <div class="phone-numbers">
+                    <a href="tel:9099561439">9099561439</a>
+                    <a href="tel:9925466261">9925466261</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -967,17 +1469,161 @@
 
     <footer>
       <div class="container">
-        <p>&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.</p>
-        <p>Your RTO Consultancy Partner</p>
+        <p data-lang-key="copyright">
+          &copy; 2025 Shreenath Auto Advisers. All Rights Reserved.
+        </p>
+        <p data-lang-key="tagline">Your RTO Consultancy Partner</p>
       </div>
     </footer>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const hamburger = document.querySelector(".hamburger");
-        const navLinks = document.querySelector(".nav-links");
+    <!-- Language Selection Modal -->
+    <div id="language-modal" class="language-modal">
+      <div class="language-modal-content">
+        <div class="modal-logo">
+          <img src="logo.png" alt="Shreenath Auto Advisers Logo" />
+        </div>
+        <h3>Choose Your Language / તમારી ભાષા પસંદ કરો</h3>
+        <div class="language-options">
+          <button id="lang-en-btn">English</button>
+          <button id="lang-gu-btn">ગુજરાતી</button>
+        </div>
+      </div>
+    </div>
 
-        // --- Intersection Observer for Content Animations ---
+    <script>
+      const translations = {
+        en: {
+          companyName: "Shreenath Auto Advisers",
+          home: "Home",
+          about: "About Us",
+          services: "Services",
+          contact: "Contact",
+          heroTitle: "Simplifying RTO, Empowering You",
+          heroSubtitle:
+            "Navigating the complexities of RTO paperwork can be overwhelming. At Shreenath Auto Advisers, we provide reliable, efficient, and hassle-free consultancy services to simplify all your vehicle documentation needs.",
+          heroButton: "Explore Services",
+          welcomeTitle: "Welcome to Shreenath Auto Advisers",
+          welcomeSubtitle:
+            "We are your one-stop solution for all Regional Transport Office (RTO) related services. From new vehicle registrations to complex ownership transfers, we handle it all with precision and care. All RTO work can be done by us, ensuring a seamless and stress-free experience. For any RTO work, please contact us. We pride ourselves on providing the best, most reliable service in the city",
+          whyUsTitle: "Why Choose Us?",
+          whyUsSubtitle:
+            "We are more than consultants; we are dedicated partners committed to excellence in every aspect of the RTO process.",
+          feature1Title: "Decades of Experience",
+          feature1Desc:
+            "Our team leverages deep institutional knowledge of RTO regulations to navigate complexities with unmatched efficiency, ensuring your work is done right the first time.",
+          feature2Title: "Absolute Transparency",
+          feature2Desc:
+            "We believe in complete transparency. There are no hidden fees or surprise charges. We provide a clear breakdown of costs and processes from the very beginning so you know exactly what to expect.",
+          feature3Title: "Client-Centric Service",
+          feature3Desc:
+            "Your satisfaction is our top priority. We listen to your needs, provide clear communication throughout the process, and ensure you are always informed and confident in our services.",
+          slogan: '"Clarity in Process, Confidence in Outcome."',
+          coreServicesTitle: "Our Core Services",
+          coreServicesSubtitle:
+            "Discover our curated selection of services, designed to address the most critical RTO needs with professional care and attention to detail.",
+          service1Title: "New Vehicle Registration",
+          service1Desc:
+            "Flawless execution of the registration process for your new premium car or motorcycle.",
+          service2Title: "Transfer of Ownership",
+          service2Desc:
+            "Effortless and secure transfer of vehicle ownership, including all legal and procedural formalities.",
+          service3Title: "Driving License Concierge",
+          service3Desc:
+            "Personalized guidance for obtaining a new license or renewing your existing credentials.",
+          allServicesButton: "View All Services",
+          teamTitle: "Meet Our Experts",
+          teamSubtitle:
+            "Our distinction lies in our team. Meet the seasoned professionals dedicated to delivering prompt, transparent, and superior service.",
+          t1Role: "Founder & RTO Adviser",
+          t2Role: "Technical Specialist",
+          t3Role: "Branch Manager, Dhoraji",
+          t4Role: "Designer and developer of Website",
+          locationsTitle: "Our Locations",
+          locationsSubtitle:
+            "With two strategically located branches, we are positioned to serve you better. We invite you to visit for a personal consultation.",
+          branch1Name: "Jamkandorana Branch",
+          branch1Address:
+            "Near Bharat ges agency, 1st Floor, Kalavad Road, Jamkandorana, Rajkot, Gujarat-360405",
+          branch2Name: "Dhoraji Branch",
+          branch2Address:
+            "Near Naqsh pan, Jetpur raod, Dhoraji, Rajkot, Gujarat-360410",
+          addressLabel: "Address",
+          phoneLabel: "Phone",
+          copyright:
+            "&copy; 2025 Shreenath Auto Advisers. All Rights Reserved.",
+          tagline: "Your RTO Consultancy Partner",
+        },
+        gu: {
+          companyName: "શ્રીનાથ ઓટો એડવાઇઝર્સ",
+          home: "હોમ",
+          about: "અમારા વિશે",
+          services: "સેવાઓ",
+          contact: "સંપર્ક",
+          heroTitle: "RTO ને સરળ બનાવવું, તમને સશક્ત બનાવવું",
+          heroSubtitle:
+            "RTO કાગળપત્રની જટિલતાઓને નેવિગેટ કરવું જબરજસ્ત હોઈ શકે છે. શ્રીનાથ ઓટો એડવાઇઝર્સ પર, અમે તમારી બધી વાહન દસ્તાવેજીકરણ જરૂરિયાતોને સરળ બનાવવા માટે વિશ્વસનીય, કાર્યક્ષમ અને મુશ્કેલી-મુક્ત કન્સલ્ટન્સી સેવાઓ પ્રદાન કરીએ છીએ.",
+          heroButton: "સેવાઓનું અન્વેષણ કરો",
+          welcomeTitle: "શ્રીનાથ ઓટો એડવાઇઝર્સમાં આપનું સ્વાગત છે",
+          welcomeSubtitle:
+            "અમે તમામ પ્રાદેશિક પરિવહન કાર્યાલય (RTO) સંબંધિત સેવાઓ માટે તમારા વન-સ્ટોપ સોલ્યુશન છીએ. નવા વાહનની નોંધણીથી લઈને જટિલ માલિકીના સ્થાનાંતરણ સુધી, અમે તે બધું ચોકસાઇ અને કાળજી સાથે સંભાળીએ છીએ. તમામ RTO કામ અમારા દ્વારા થઈ શકે છે, એક સરળ અને તણાવ-મુક્ત અનુભવ સુનિશ્ચિત કરે છે. કોઈપણ RTO કામ માટે, કૃપા કરીને અમારો સંપર્ક કરો. અમે શહેરમાં શ્રેષ્ઠ, સૌથી વિશ્વસનીય સેવા પ્રદાન કરવા પર ગર્વ અનુભવીએ છીએ.",
+          whyUsTitle: "અમને કેમ પસંદ કરો?",
+          whyUsSubtitle:
+            "અમે સલાહકારો કરતાં વધુ છીએ; અમે RTO પ્રક્રિયાના દરેક પાસામાં શ્રેષ્ઠતા માટે પ્રતિબદ્ધ સમર્પિત ભાગીદારો છીએ.",
+          feature1Title: "દાયકાઓનો અનુભવ",
+          feature1Desc:
+            "અમારી ટીમ RTO નિયમોના ઊંડા સંસ્થાકીય જ્ઞાનનો લાભ ઉઠાવે છે જેથી અપ્રતિમ કાર્યક્ષમતા સાથે જટિલતાઓને નેવિગેટ કરી શકાય, ખાતરી કરો કે તમારું કામ પ્રથમ વખત યોગ્ય રીતે થાય.",
+          feature2Title: "સંપૂર્ણ પારદર્શિતા",
+          feature2Desc:
+            "અમે સંપૂર્ણ પારદર્શિતામાં માનીએ છીએ. કોઈ છુપાયેલ ફી અથવા આશ્ચર્યજનક શુલ્ક નથી. અમે શરૂઆતથી જ ખર્ચ અને પ્રક્રિયાઓનું સ્પષ્ટ વિરામ પ્રદાન કરીએ છીએ જેથી તમે બરાબર જાણો કે શું અપેક્ષા રાખવી.",
+          feature3Title: "ગ્રાહક-કેન્દ્રિત સેવા",
+          feature3Desc:
+            "તમારી સંતોષ અમારી ટોચની પ્રાથમિકતા છે. અમે તમારી જરૂરિયાતોને સાંભળીએ છીએ, પ્રક્રિયા દરમ્યાન સ્પષ્ટ સંચાર પ્રદાન કરીએ છીએ, અને ખાતરી કરીએ છીએ કે તમે હંમેશા અમારી સેવાઓમાં માહિતગાર અને આત્મવિશ્વાસપૂર્ણ છો.",
+          slogan: '"પ્રક્રિયામાં સ્પષ્ટતા, પરિણામમાં આત્મવિશ્વાસ."',
+          coreServicesTitle: "અમારી મુખ્ય સેવાઓ",
+          coreServicesSubtitle:
+            "અમારી સેવાઓની ક્યુરેટેડ પસંદગી શોધો, જે સૌથી જટિલ RTO જરૂરિયાતોને વ્યાવસાયિક સંભાળ અને વિગતવાર ધ્યાન સાથે સંબોધવા માટે રચાયેલ છે.",
+          service1Title: "નવા વાહનની નોંધણી",
+          service1Desc:
+            "તમારી નવી પ્રીમિયમ કાર અથવા મોટરસાઇકલ માટે નોંધણી પ્રક્રિયાનું દોષરહિત અમલ.",
+          service2Title: "માલિકીનું સ્થાનાંતરણ",
+          service2Desc:
+            "તમામ કાનૂની અને પ્રક્રિયાગત ઔપચારિકતાઓ સહિત, વાહનની માલિકીનું પ્રયાસરહિત અને સુરક્ષિત સ્થાનાંતરણ.",
+          service3Title: "ડ્રાઇવિંગ લાઇસન્સ દ્વારપાલ",
+          service3Desc:
+            "નવું લાઇસન્સ મેળવવા અથવા તમારી હાલની ઓળખપત્રોનું નવીકરણ કરવા માટે વ્યક્તિગત માર્ગદર્શન.",
+          allServicesButton: "બધી સેવાઓ જુઓ",
+          teamTitle: "અમારા નિષ્ણાતોને મળો",
+          teamSubtitle:
+            "અમારો તફાવત અમારી ટીમમાં રહેલો છે. ત્વરિત, પારદર્શક અને શ્રેષ્ઠ સેવા પ્રદાન કરવા માટે સમર્પિત અનુભવી વ્યાવસાયિકોને મળો.",
+          t1Role: "સ્થાપક અને RTO સલાહકાર",
+          t2Role: "ટેકનિકલ નિષ્ણાત",
+          t3Role: "શાખા સંચાલક, ધોરાજી",
+          t4Role: "વેબસાઇટના ડિઝાઇનર અને ડેવલપર",
+          locationsTitle: "અમારા સ્થાનો",
+          locationsSubtitle:
+            "બે વ્યૂહાત્મક રીતે સ્થિત શાખાઓ સાથે, અમે તમને વધુ સારી રીતે સેવા આપવા માટે સ્થિત છીએ. અમે તમને વ્યક્તિગત પરામર્શ માટે મુલાકાત લેવા માટે આમંત્રિત કરીએ છીએ.",
+          branch1Name: "જામકંડોરણા શાખા",
+          branch1Address:
+            "ભારત ગેસ એજન્સી પાસે, પહેલો માળ, કાલાવડ રોડ, જામકંડોરણા, રાજકોટ, ગુજરાત-૩૬૦૪૦૫",
+          branch2Name: "ધોરાજી શાખા",
+          branch2Address:
+            "નકશ પાન પાસે, જેતપુર રોડ, ધોરાજી, રાજકોટ, ગુજરાત-૩૬૦૪૧૦",
+          addressLabel: "સરનામું",
+          phoneLabel: "ફોન",
+          copyright:
+            "&copy; 2025 શ્રીનાથ ઓટો એડવાઇઝર્સ. સર્વાધિકાર સુરક્ષિત.",
+          tagline: "તમારા RTO કન્સલ્ટન્સી પાર્ટનર",
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const htmlEl = document.documentElement;
+        const heroContent = document.querySelector(".hero-content");
+
+        if (heroContent) {
+          heroContent.classList.add("visible");
+        }
+
         const observer = new IntersectionObserver(
           (entries, obs) => {
             entries.forEach((entry) => {
@@ -990,15 +1636,88 @@
           { threshold: 0.1 }
         );
 
-        const hiddenElements = document.querySelectorAll(".hidden");
+        const hiddenElements = document.querySelectorAll(
+          ".content-section .hidden, .brand-quote .hidden"
+        );
         hiddenElements.forEach((el) => observer.observe(el));
 
-        // --- Hamburger Menu Logic ---
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
         if (hamburger && navLinks) {
           hamburger.addEventListener("click", () => {
             navLinks.classList.toggle("nav-active");
             hamburger.classList.toggle("toggle");
           });
+
+          document.addEventListener("click", (e) => {
+            if (
+              navLinks.classList.contains("nav-active") &&
+              !navLinks.contains(e.target) &&
+              !hamburger.contains(e.target)
+            ) {
+              navLinks.classList.remove("nav-active");
+              hamburger.classList.remove("toggle");
+            }
+          });
+        }
+
+        const themeToggles = document.querySelectorAll(".theme-toggle");
+        themeToggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            htmlEl.classList.toggle("dark-mode");
+            localStorage.setItem(
+              "theme",
+              htmlEl.classList.contains("dark-mode") ? "dark" : "light"
+            );
+          });
+        });
+
+        const setLanguage = (language) => {
+          document.body.classList.add("is-translating");
+          setTimeout(() => {
+            document
+              .querySelectorAll("[data-lang-key]")
+              .forEach((element) => {
+                const key = element.getAttribute("data-lang-key");
+                if (translations[language]?.[key]) {
+                  element.innerHTML = translations[language][key];
+                }
+              });
+            htmlEl.lang = language;
+            localStorage.setItem("language", language);
+            document.body.classList.toggle("gujarati-font", language === "gu");
+            document.body.classList.remove("is-translating");
+          }, 300);
+        };
+
+        const toggleLanguage = () => {
+          const currentLang = localStorage.getItem("language") || "en";
+          const newLang = currentLang === "en" ? "gu" : "en";
+          setLanguage(newLang);
+        };
+
+        document
+          .querySelectorAll(".translate-button")
+          .forEach((button) => button.addEventListener("click", toggleLanguage));
+
+        // --- LANGUAGE MODAL LOGIC ---
+        const languageModal = document.getElementById("language-modal");
+        const langEnBtn = document.getElementById("lang-en-btn");
+        const langGuBtn = document.getElementById("lang-gu-btn");
+
+        const handleLanguageChoice = (lang) => {
+          setLanguage(lang);
+          localStorage.setItem("language_selected", "true");
+          languageModal.classList.remove("active");
+        };
+
+        if (!localStorage.getItem("language_selected")) {
+          languageModal.classList.add("active");
+          langEnBtn.addEventListener("click", () => handleLanguageChoice("en"));
+          langGuBtn.addEventListener("click", () => handleLanguageChoice("gu"));
+        } else {
+          const savedLanguage = localStorage.getItem("language") || "en";
+          setLanguage(savedLanguage);
         }
       });
     </script>
